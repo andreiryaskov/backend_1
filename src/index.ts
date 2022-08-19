@@ -29,23 +29,12 @@ app.get('/videos/:videoId', (req: Request, res: Response) => {
 
 app.post('/videos', (req: Request, res: Response) => {
     const newVideo = {
-        "title": "string",
-        "author": "string",
-        "availableResolutions": [
-            "P144"
-        ]
+        "title": "string"
     }
     const resNewVideo = {
         "id": 0,
         "title": "string",
-        "author": "string",
-        "canBeDownloaded": true,
-        "minAgeRestriction": null,
-        "createdAt": "2022-08-19T13:20:09.460Z",
-        "publicationDate": "2022-08-19T13:20:09.460Z",
-        "availableResolutions": [
-            "P144"
-        ]
+        "author": "string"
     }
     const error = {
         "errorsMessages": [
