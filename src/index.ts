@@ -13,16 +13,9 @@ app.use(cors())
 
 const videos = [
     {
-        "id": 0,
-        "title": "string",
         "author": "string",
-        "canBeDownloaded": true,
-        "minAgeRestriction": null,
-        "createdAt": "2022-08-19T13:20:09.470Z",
-        "publicationDate": "2022-08-19T13:20:09.470Z",
-        "availableResolutions": [
-            "P144"
-        ]
+        "id": 0,
+        "title": "string"
     }
 ]
 
