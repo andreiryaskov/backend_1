@@ -13,7 +13,7 @@ app.use(cors())
 
 const videos = [
     {
-        "id": 0,
+        id: 0,
         "title": "string",
         "author": "string",
         "canBeDownloaded": true,
@@ -25,7 +25,7 @@ const videos = [
         ]
     },
     {
-        "id": 1,
+        id: 1,
         "title": "string",
         "author": "string",
         "canBeDownloaded": true,
@@ -37,7 +37,7 @@ const videos = [
         ]
     },
     {
-        "id": 2,
+        id: 2,
         "title": "string",
         "author": "string",
         "canBeDownloaded": true,
@@ -70,15 +70,17 @@ app.get('/videos/:videoId', (req: Request, res: Response) => {
 })
 
 app.post('/videos', (req: Request, res: Response) => {
+    const date = new Date()
+    console.log("TEST")
     const newVideo = {
         id: videos.length + 1,
         title: req.body.title,
         author: req.body.author,
         availableResolutions: req.body.availableResolutions,
-        createdAt: new Date().toString(),
+        createdAt: date.toString(),
         "canBeDownloaded": true,
         "minAgeRestriction": null,
-        "publicationDate": "2022-08-19T11:36:24.965Z",
+        "publicationDate": date.toString(),
     }
     videos.push(newVideo)
     res.send(newVideo)
