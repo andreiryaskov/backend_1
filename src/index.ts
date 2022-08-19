@@ -34,7 +34,7 @@ app.post('/videos', (req: Request, res: Response) => {
     }
     if (newVideo) {
         videos.push(newVideo)
-        res.send(newVideo).status(201)
+        res.status(201).send(newVideo)
     } else {
         res.status(400).send({
             "errorsMessages": [
