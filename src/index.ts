@@ -12,15 +12,51 @@ app.use(middlewareParser)
 app.use(cors())
 
 const videos = [
-    {id: 1, title: 'About JS - 01', author: 'it-incubator.eu'},
-    {id: 2, title: 'About JS - 02', author: 'it-incubator.eu'},
-    {id: 3, title: 'About JS - 03', author: 'it-incubator.eu'},
-    {id: 4, title: 'About JS - 04', author: 'it-incubator.eu'},
-    {id: 5, title: 'About JS - 05', author: 'it-incubator.eu'},
+    {
+        "id": 0,
+        "title": "string",
+        "author": "string",
+        "canBeDownloaded": true,
+        "minAgeRestriction": null,
+        "createdAt": "2022-08-19T11:36:24.965Z",
+        "publicationDate": "2022-08-19T11:36:24.965Z",
+        "availableResolutions": [
+            "P144"
+        ]
+    },
+    {
+        "id": 1,
+        "title": "string",
+        "author": "string",
+        "canBeDownloaded": true,
+        "minAgeRestriction": null,
+        "createdAt": "2022-08-19T11:36:24.965Z",
+        "publicationDate": "2022-08-19T11:36:24.965Z",
+        "availableResolutions": [
+            "P144"
+        ]
+    },
+    {
+        "id": 2,
+        "title": "string",
+        "author": "string",
+        "canBeDownloaded": true,
+        "minAgeRestriction": null,
+        "createdAt": "2022-08-19T11:36:24.965Z",
+        "publicationDate": "2022-08-19T11:36:24.965Z",
+        "availableResolutions": [
+            "P144"
+        ]
+    }
 ]
 
 app.get('/hometask_01/api/videos', (req: Request, res: Response) => {
-    res.send(videos)
+    if (videos) {
+        res.send(videos)
+        res.send(200)
+    } else {
+        res.send(404)
+    }
 })
 
 app.get('/hometask_01/api/videos/:videoId', (req: Request, res: Response) => {
@@ -33,15 +69,15 @@ app.get('/hometask_01/api/videos/:videoId', (req: Request, res: Response) => {
     }
 })
 
-app.post('/hometask_01/api/videos', (req: Request, res: Response) => {
-    const newVideo = {
-        id: +(new Date()),
-        title: req.body.title,
-        author: 'it-incubator.eu'
-    }
-    videos.push(newVideo)
-    res.send(newVideo)
-})
+// app.post('/hometask_01/api/videos', (req: Request, res: Response) => {
+//     const newVideo = {
+//         id: +(new Date()),
+//         title: req.body.title,
+//         author: 'it-incubator.eu'
+//     }
+//     videos.push(newVideo)
+//     res.send(newVideo)
+// })
 
 //Delete video id
 app.delete('/hometask_01/api/videos/:id',(req: Request, res: Response)=>{
