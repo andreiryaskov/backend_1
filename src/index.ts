@@ -69,15 +69,20 @@ app.get('/videos/:videoId', (req: Request, res: Response) => {
     }
 })
 
-// app.post('/hometask_01/api/videos', (req: Request, res: Response) => {
-//     const newVideo = {
-//         id: +(new Date()),
-//         title: req.body.title,
-//         author: 'it-incubator.eu'
-//     }
-//     videos.push(newVideo)
-//     res.send(newVideo)
-// })
+app.post('/videos', (req: Request, res: Response) => {
+    const newVideo = {
+        id: +(new Date()),
+        title: req.body.title,
+        author: req.body.author,
+        availableResolutions: req.body.availableResolutions,
+        createdAt: new Date().toString(),
+        "canBeDownloaded": true,
+        "minAgeRestriction": null,
+        "publicationDate": "2022-08-19T11:36:24.965Z",
+    }
+    videos.push(newVideo)
+    res.send(newVideo)
+})
 
 //Delete video id
 app.delete('/videos/:id',(req: Request, res: Response)=>{
@@ -95,7 +100,8 @@ app.delete('/testing/all-data',(req: Request, res: Response)=>{
     for (let i = 0; i < videos.length; i++) {
         delete videos[i]
     }
-    res.send(null)
+    // res.send(null)
+    res.sendStatus(204)
 })
 
 app.put('/videos/:id',(req: Request, res: Response)=>{
