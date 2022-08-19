@@ -27,12 +27,13 @@ app.get('/videos/:videoId', (req: Request, res: Response) => {
 })
 
 app.post('/videos', (req: Request, res: Response) => {
-    const resNewVideo = {
+    const newVideo = {
         "id": 0,
         "title": "string",
         "author": "string"
     }
-    res.send(resNewVideo).status(201)
+    videos.push(newVideo)
+    res.status(201).send(newVideo)
 
 })
 
