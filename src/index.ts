@@ -60,9 +60,8 @@ app.delete('/videos/:id', (req: Request, res: Response) => {
             videos.slice(i, 1)
             res.status(204)
             return
-        } else {
-            res.status(404)
         }
+        res.status(404)
     }
 })
 
