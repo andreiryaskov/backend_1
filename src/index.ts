@@ -27,6 +27,7 @@ const videos = [
 ]
 
 app.get('/videos', (req: Request, res: Response) => {
+    res.send(videos)
 })
 
 app.get('/videos/:videoId', (req: Request, res: Response) => {
