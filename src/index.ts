@@ -44,11 +44,7 @@ app.post('/videos', (req: Request, res: Response) => {
             }
         ]
     }
-    if (req.body === newVideo) {
-        res.send(resNewVideo).sendStatus(201)
-    } else {
-        res.send(error).sendStatus(400)
-    }
+    res.send(resNewVideo).sendStatus(201)
 
 })
 
