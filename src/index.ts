@@ -56,7 +56,6 @@ app.post('/videos', (req: Request, res: Response) => {
 
 //Delete video id
 app.delete('/videos/:id', (req: Request, res: Response) => {
-
     for (let i = 0; i < videos.length; i++) {
         if (videos[i].id === +req.params.id) {
             videos.slice(i, 1)
@@ -66,7 +65,6 @@ app.delete('/videos/:id', (req: Request, res: Response) => {
             res.status(404)
         }
     }
-    res.status(204).send(videos)
 })
 
 //All data clear
