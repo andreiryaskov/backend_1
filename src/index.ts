@@ -61,6 +61,7 @@ app.get('/videos', (req: Request, res: Response) => {
 
 app.get('/videos/:videoId', (req: Request, res: Response) => {
     const id = +req.params.videoId;
+    console.log('videis', videos)
     const video = videos.find(v => v.id === id)
     if (video) {
         res.send(video)
@@ -102,6 +103,7 @@ app.delete('/testing/all-data',(req: Request, res: Response)=>{
     for (let i = 0; i < videos.length; i++) {
         delete videos[i]
     }
+    //videos.slice()
     // res.send(null)
     res.sendStatus(204)
 })
