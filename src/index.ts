@@ -34,13 +34,6 @@ app.get('/videos/:videoId', (req: Request, res: Response) => {
 })
 
 app.post('/videos', (req: Request, res: Response) => {
-    const newVideo = {
-        "title": "string",
-        "author": "string",
-        "availableResolutions": [
-            "P144"
-        ]
-    }
     const resNewVideo = {
         "id": 0,
         "title": "string",
@@ -53,20 +46,7 @@ app.post('/videos', (req: Request, res: Response) => {
             "P144"
         ]
     }
-    const error = {
-        "errorsMessages": [
-            {
-                "message": "string",
-                "field": "string"
-            }
-        ]
-    }
-    if (req.body === newVideo) {
-        res.send(resNewVideo).sendStatus(201)
-    } else {
-        res.send(error).sendStatus(400)
-    }
-
+    res.send(resNewVideo).sendStatus(201)
 })
 
 //Delete video id
