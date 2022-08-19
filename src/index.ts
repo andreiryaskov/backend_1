@@ -51,12 +51,9 @@ const videos = [
 ]
 
 app.get('/videos', (req: Request, res: Response) => {
-    if (videos) {
-        res.send(videos)
-        res.send(200)
-    } else {
-        res.send(404)
-    }
+    res.sendStatus(200)
+    res.send(videos)
+
 })
 
 app.get('/videos/:videoId', (req: Request, res: Response) => {
@@ -88,7 +85,7 @@ app.post('/videos', (req: Request, res: Response) => {
 })
 
 //Delete video id
-app.delete('/videos/:id',(req: Request, res: Response)=>{
+app.delete('/videos/:id', (req: Request, res: Response) => {
     for (let i = 0; i < videos.length; i++) {
         if (videos[i].id === +req.params.id) {
             videos.slice(i, 1)
@@ -99,7 +96,7 @@ app.delete('/videos/:id',(req: Request, res: Response)=>{
 })
 
 //All data clear
-app.delete('/testing/all-data',(req: Request, res: Response)=>{
+app.delete('/testing/all-data', (req: Request, res: Response) => {
     // for (let i = 0; i < videos.length; i++) {
     //     delete videos[i]
     // }
@@ -110,7 +107,7 @@ app.delete('/testing/all-data',(req: Request, res: Response)=>{
     res.sendStatus(204)
 })
 
-app.put('/videos/:id',(req: Request, res: Response)=>{
+app.put('/videos/:id', (req: Request, res: Response) => {
     const newVideo = videos.find(v => v.id === +req.params.id)
     if (newVideo) {
         newVideo.title = req.body.title
@@ -119,7 +116,6 @@ app.put('/videos/:id',(req: Request, res: Response)=>{
         res.send(404)
     }
 })
-
 
 
 app.listen(port, () => {
