@@ -13,37 +13,13 @@ app.use(cors())
 
 const videos = [
     {
-        id: 0,
+        "id": 0,
         "title": "string",
         "author": "string",
         "canBeDownloaded": true,
         "minAgeRestriction": null,
-        "createdAt": "2022-08-19T11:36:24.965Z",
-        "publicationDate": "2022-08-19T11:36:24.965Z",
-        "availableResolutions": [
-            "P144"
-        ]
-    },
-    {
-        id: 1,
-        "title": "string",
-        "author": "string",
-        "canBeDownloaded": true,
-        "minAgeRestriction": null,
-        "createdAt": "2022-08-19T11:36:24.965Z",
-        "publicationDate": "2022-08-19T11:36:24.965Z",
-        "availableResolutions": [
-            "P144"
-        ]
-    },
-    {
-        id: 2,
-        "title": "string",
-        "author": "string",
-        "canBeDownloaded": true,
-        "minAgeRestriction": null,
-        "createdAt": "2022-08-19T11:36:24.965Z",
-        "publicationDate": "2022-08-19T11:36:24.965Z",
+        "createdAt": "2022-08-19T13:20:09.470Z",
+        "publicationDate": "2022-08-19T13:20:09.470Z",
         "availableResolutions": [
             "P144"
         ]
@@ -51,10 +27,7 @@ const videos = [
 ]
 
 app.get('/videos', (req: Request, res: Response) => {
-
-    res.send(videos)
-    res.sendStatus(200)
-
+    res.send(videos).sendStatus(200)
 })
 
 app.get('/videos/:videoId', (req: Request, res: Response) => {
