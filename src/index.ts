@@ -32,7 +32,7 @@ app.post('/videos', (req: Request, res: Response) => {
         "title": "string",
         "author": "string"
     }
-    res.send(resNewVideo).sendStatus(201)
+    res.send(resNewVideo).status(201)
 
 })
 
