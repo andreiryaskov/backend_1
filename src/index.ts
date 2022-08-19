@@ -20,7 +20,6 @@ const videos = [
 ]
 
 app.get('/videos', (req: Request, res: Response) => {
-
     res.send(videos).sendStatus(200)
 })
 
@@ -28,23 +27,12 @@ app.get('/videos/:videoId', (req: Request, res: Response) => {
 })
 
 app.post('/videos', (req: Request, res: Response) => {
-    const newVideo = {
-        "title": "string"
-    }
     const resNewVideo = {
         "id": 0,
         "title": "string",
         "author": "string"
     }
-    const error = {
-        "errorsMessages": [
-            {
-                "message": "string",
-                "field": "string"
-            }
-        ]
-    }
-    res.send(resNewVideo).send(201)
+    res.send(resNewVideo).sendStatus(201)
 
 })
 
