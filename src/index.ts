@@ -28,7 +28,8 @@ app.get('/videos/:videoId', (req: Request, res: Response) => {
     const video = videos.find(v => v.id === id)
     if (video) {
         res.status(200).send(video)
-    } else {
+    }
+    if (!video) {
         res.status(404)
     }
 })
@@ -56,6 +57,7 @@ app.post('/videos', (req: Request, res: Response) => {
 
 //Delete video id
 app.delete('/videos/:id', (req: Request, res: Response) => {
+    debugger
     const id = +req.params.id
     const deleteVideo = videos.findIndex(v => v.id === id)
     if (deleteVideo) {
