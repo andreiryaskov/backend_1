@@ -71,7 +71,7 @@ app.get('/videos/:videoId', (req: Request, res: Response) => {
 
 app.post('/videos', (req: Request, res: Response) => {
     const newVideo = {
-        id: +(new Date()),
+        id: videos.length + 1,
         title: req.body.title,
         author: req.body.author,
         availableResolutions: req.body.availableResolutions,
