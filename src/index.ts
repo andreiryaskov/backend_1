@@ -50,7 +50,7 @@ const videos = [
     }
 ]
 
-app.get('/hometask_01/api/videos', (req: Request, res: Response) => {
+app.get('/videos', (req: Request, res: Response) => {
     if (videos) {
         res.send(videos)
         res.send(200)
@@ -59,7 +59,7 @@ app.get('/hometask_01/api/videos', (req: Request, res: Response) => {
     }
 })
 
-app.get('/hometask_01/api/videos/:videoId', (req: Request, res: Response) => {
+app.get('/videos/:videoId', (req: Request, res: Response) => {
     const id = +req.params.videoId;
     const video = videos.find(v => v.id === id)
     if (video) {
@@ -80,7 +80,7 @@ app.get('/hometask_01/api/videos/:videoId', (req: Request, res: Response) => {
 // })
 
 //Delete video id
-app.delete('/hometask_01/api/videos/:id',(req: Request, res: Response)=>{
+app.delete('/videos/:id',(req: Request, res: Response)=>{
     for (let i = 0; i < videos.length; i++) {
         if (videos[i].id === +req.params.id) {
             videos.slice(i, 1)
@@ -91,14 +91,14 @@ app.delete('/hometask_01/api/videos/:id',(req: Request, res: Response)=>{
 })
 
 //All data clear
-app.delete('/ht_01/api/testing/all-data',(req: Request, res: Response)=>{
+app.delete('/testing/all-data',(req: Request, res: Response)=>{
     for (let i = 0; i < videos.length; i++) {
         delete videos[i]
     }
     res.send(null)
 })
 
-app.put('/hometask_01/api/videos/:id',(req: Request, res: Response)=>{
+app.put('/videos/:id',(req: Request, res: Response)=>{
     const newVideo = videos.find(v => v.id === +req.params.id)
     if (newVideo) {
         newVideo.title = req.body.title
