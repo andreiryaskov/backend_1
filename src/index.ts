@@ -24,6 +24,13 @@ app.get('/videos', (req: Request, res: Response) => {
 })
 
 app.get('/videos/:videoId', (req: Request, res: Response) => {
+    const id = +req.params.videoId
+    const video = videos.find(v => v.id === id)
+    if (video) {
+        res.status(200).send(video)
+    } else {
+        res.status(404)
+    }
 })
 
 app.post('/videos', (req: Request, res: Response) => {
@@ -45,8 +52,6 @@ app.post('/videos', (req: Request, res: Response) => {
             ]
         })
     }
-
-
 })
 
 //Delete video id
