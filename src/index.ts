@@ -56,7 +56,8 @@ app.post('/videos', (req: Request, res: Response) => {
 
 //Delete video id
 app.delete('/videos/:id', (req: Request, res: Response) => {
-    const deleteVideo = videos.findIndex(v => v.id === +req.params.id)
+    const id = +req.params.id
+    const deleteVideo = videos.findIndex(v => v.id === id)
     if (deleteVideo) {
         videos.slice(deleteVideo, 1)
         res.status(204)
