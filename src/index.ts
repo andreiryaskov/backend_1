@@ -62,7 +62,7 @@ app.delete('/videos/:id', (req: Request, res: Response) => {
             return
         }
     }
-    res.status(404)
+    res.send(404)
 })
 
 //All data clear
