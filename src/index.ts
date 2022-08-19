@@ -57,12 +57,12 @@ app.post('/videos', (req: Request, res: Response) => {
 app.delete('/videos/:id', (req: Request, res: Response) => {
     for (let i = 0; i < videos.length; i++) {
         if (videos[i].id === +req.params.id) {
-            videos.slice(i, 1)
+            videos.splice(i, 1)
             res.status(204)
             return
         }
-        res.status(404)
     }
+    res.status(404)
 })
 
 //All data clear
