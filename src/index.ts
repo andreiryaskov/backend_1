@@ -32,8 +32,20 @@ app.post('/videos', (req: Request, res: Response) => {
         "title": "string",
         "author": "string"
     }
-    videos.push(newVideo)
-    res.send(newVideo).status(201)
+    if (newVideo) {
+        videos.push(newVideo)
+        res.send(newVideo).status(201)
+    } else {
+        res.status(400).send({
+            "errorsMessages": [
+                {
+                    "message": "string",
+                    "field": "string"
+                }
+            ]
+        })
+    }
+
 
 })
 
