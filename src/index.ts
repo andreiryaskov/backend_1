@@ -68,7 +68,7 @@ app.delete('/videos/:id', (req: Request, res: Response) => {
 //All data clear
 app.delete('/all-data', (req: Request, res: Response) => {
     videos = []
-    res.status(204)
+    res.send(204)
 })
 
 app.put('/videos/:id', (req: Request, res: Response) => {
