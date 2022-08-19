@@ -100,9 +100,11 @@ app.delete('/videos/:id',(req: Request, res: Response)=>{
 
 //All data clear
 app.delete('/testing/all-data',(req: Request, res: Response)=>{
-    for (let i = 0; i < videos.length; i++) {
-        delete videos[i]
-    }
+    // for (let i = 0; i < videos.length; i++) {
+    //     delete videos[i]
+    // }
+    videos.splice(0, videos.length)
+
     //videos.slice()
     // res.send(null)
     res.sendStatus(204)
