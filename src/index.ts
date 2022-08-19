@@ -2,7 +2,6 @@ import {Request, Response} from "express";
 import cors from 'cors';
 import bodyParser from "body-parser";
 
-
 const express = require('express')
 const app = express()
 const port = process.env.PORT;
@@ -28,8 +27,7 @@ app.get('/videos/:videoId', (req: Request, res: Response) => {
     const video = videos.find(v => v.id === id)
     if (video) {
         res.status(200).send(video)
-    }
-    if (!video) {
+    } else {
         res.status(404)
     }
 })
@@ -57,29 +55,19 @@ app.post('/videos', (req: Request, res: Response) => {
 
 //Delete video id
 app.delete('/videos/:id', (req: Request, res: Response) => {
-    debugger
-    const id = +req.params.id
-    const deleteVideo = videos.findIndex(v => v.id === id)
-    if (deleteVideo) {
-        videos.slice(deleteVideo, 1)
-        res.status(204)
-    } else {
-        res.status(404)
+    for (let i = 0; i < videos.length; i++) {
+        if (videos[i].id === +req.params.id) {
+            videos.slice(i, 1)
+            res.status(204)
+            return
+        } else {
+            res.status(404)
+        }
     }
-
-    // for (let i = 0; i < videos.length; i++) {
-    //     if (videos[i].id === +req.params.id) {
-    //         videos.slice(i, 1)
-    //         res.status(204)
-    //         return
-    //     } else {
-    //         res.status(404)
-    //     }
-    // }
 })
 
 //All data clear
-app.delete('/testing/all-data', (req: Request, res: Response) => {
+app.delete('/all-data', (req: Request, res: Response) => {
     videos = []
     res.status(204)
 })
