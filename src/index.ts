@@ -11,7 +11,7 @@ const middlewareParser = bodyParser({})
 app.use(middlewareParser)
 app.use(cors())
 
-const videos = [
+let videos = [
     {
         "author": "string",
         "id": 0,
@@ -68,8 +68,10 @@ app.delete('/videos/:id', (req: Request, res: Response) => {
 })
 
 //All data clear
-// app.delete('/testing/all-data', (req: Request, res: Response) => {
-// })
+app.delete('/testing/all-data', (req: Request, res: Response) => {
+    videos = []
+    res.status(204)
+})
 
 app.put('/videos/:id', (req: Request, res: Response) => {
     const video = videos.find(v => v.id === +req.params.id)
