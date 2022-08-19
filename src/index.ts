@@ -44,7 +44,7 @@ app.post('/videos', (req: Request, res: Response) => {
             }
         ]
     }
-    res.send(resNewVideo)
+    res.send(resNewVideo).send(201)
 
 })
 
