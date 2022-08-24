@@ -1,14 +1,14 @@
-import {Request, Response, Router} from "express";
+import {Request, Response} from "express";
 import cors from 'cors';
 import bodyParser from "body-parser";
+
 const express = require('express')
 const app = express()
 const port = process.env.PORT;
 const middlewareParser = bodyParser({})
-const videosRouter = Router({})
 
-videosRouter.use(middlewareParser)
-videosRouter.use(cors())
+app.use(middlewareParser)
+app.use(cors())
 
 let videos = [
     {
@@ -18,11 +18,11 @@ let videos = [
     }
 ]
 
-videosRouter.get('/videos', (req: Request, res: Response) => {
+app.get('/videos', (req: Request, res: Response) => {
     res.status(200).send(videos)
 })
 
-videosRouter.get('/videos/:videoId', (req: Request, res: Response) => {
+app.get('/videos/:videoId', (req: Request, res: Response) => {
     const id = +req.params.videoId
     const video = videos.find(v => v.id === id)
     if (video) {
@@ -32,7 +32,7 @@ videosRouter.get('/videos/:videoId', (req: Request, res: Response) => {
     }
 })
 
-videosRouter.post('/videos', (req: Request, res: Response) => {
+app.post('/videos', (req: Request, res: Response) => {
     const newVideo = {
         "id": videos.length + 1,
         "title": "string",
@@ -54,7 +54,7 @@ videosRouter.post('/videos', (req: Request, res: Response) => {
 })
 
 //Delete video id
-videosRouter.delete('/videos/:id', (req: Request, res: Response) => {
+app.delete('/videos/:id', (req: Request, res: Response) => {
     for (let i = 0; i < videos.length; i++) {
         if (videos[i].id === +req.params.id) {
             videos.splice(i, 1)
@@ -66,12 +66,12 @@ videosRouter.delete('/videos/:id', (req: Request, res: Response) => {
 })
 
 //All data clear
-videosRouter.delete('/all-data', (req: Request, res: Response) => {
+app.delete('/all-data', (req: Request, res: Response) => {
     videos = []
     res.send(204)
 })
 
-videosRouter.put('/videos/:id', (req: Request, res: Response) => {
+app.put('/videos/:id', (req: Request, res: Response) => {
     const video = videos.find(v => v.id === +req.params.id)
     if (req.body.title.length > 40) {
         res.status(400).send({
