@@ -18,6 +18,12 @@ let videos = [
     }
 ]
 
+const isExistId = (id: number, isIdArray: any[]) => {
+    const index = isIdArray.findIndex(i => i.id === id)
+    return index > -1
+}
+
+
 app.get('/videos', (req: Request, res: Response) => {
     res.status(200).send(videos)
 })
@@ -25,7 +31,9 @@ app.get('/videos', (req: Request, res: Response) => {
 app.get('/videos/:videoId', (req: Request, res: Response) => {
     const id = +req.params.videoId
     const video = videos.find(v => v.id === id)
-    if (video) {
+    if (!isExistId(id, videos)) {
+        return res.status(404)
+    } else if (video) {
         res.status(200).send(video)
     } else {
         res.status(404)
@@ -55,11 +63,16 @@ app.post('/videos', (req: Request, res: Response) => {
 
 //Delete video id
 app.delete('/videos/:id', (req: Request, res: Response) => {
-    for (let i = 0; i < videos.length; i++) {
-        if (videos[i].id === +req.params.id) {
-            videos.splice(i, 1)
-            res.send(204)
-            return
+    const id = +req.params.id
+    if (!isExistId(id, videos)) {
+        return res.status(404)
+    } else {
+        for (let i = 0; i < videos.length; i++) {
+            if (videos[i].id === +req.params.id) {
+                videos.splice(i, 1)
+                res.send(204)
+                return
+            }
         }
     }
     res.send(404)
@@ -72,6 +85,7 @@ app.delete('/all-data', (req: Request, res: Response) => {
 })
 
 app.put('/videos/:id', (req: Request, res: Response) => {
+    const id = +req.params.id
     const video = videos.find(v => v.id === +req.params.id)
     if (req.body.title.length > 40) {
         res.status(400).send({
@@ -83,7 +97,9 @@ app.put('/videos/:id', (req: Request, res: Response) => {
             ]
         })
     }
-    if (video) {
+    if (!isExistId(id, videos)) {
+        return res.status(404)
+    } else if (video) {
         video.title = req.body.title
         res.status(204).send(video)
     } else {
