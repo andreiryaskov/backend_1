@@ -32,7 +32,7 @@ app.get('/videos/:videoId', (req: Request, res: Response) => {
     const id = +req.params.videoId
     const video = videos.find(v => v.id === id)
     if (!isExistId(id, videos)) {
-        return res.status(404)
+        res.status(404)
     } else if (video) {
         res.status(200).send(video)
     } else {
@@ -65,7 +65,7 @@ app.post('/videos', (req: Request, res: Response) => {
 app.delete('/videos/:id', (req: Request, res: Response) => {
     const id = +req.params.id
     if (!isExistId(id, videos)) {
-        return res.status(404)
+        res.status(404)
     } else {
         for (let i = 0; i < videos.length; i++) {
             if (videos[i].id === +req.params.id) {
@@ -98,7 +98,7 @@ app.put('/videos/:id', (req: Request, res: Response) => {
         })
     }
     if (!isExistId(id, videos)) {
-        return res.status(404)
+        res.status(404)
     } else if (video) {
         video.title = req.body.title
         res.status(204).send(video)
