@@ -20,7 +20,11 @@ let videos = [
 
 const isExistId = (id: number, isIdArray: any[]) => {
     const index = isIdArray.findIndex(i => i.id === id)
-    return index > -1
+    if (index > -1) {
+        return index
+    }
+    return false
+
 }
 
 
@@ -28,16 +32,10 @@ app.get('/videos', (req: Request, res: Response) => {
     res.status(200).send(videos)
 })
 
-app.get('/videos/:videoId', (req: Request, res: Response) => {
-    const id = +req.params.videoId
-    const video = videos.find(v => v.id === id)
-    if (!isExistId(id, videos)) {
-        return res.status(404)
-    } else if (video) {
-        return res.status(200).send(video)
-    } else {
-        res.status(404)
-    }
+//All data clear
+app.delete('/all-data', (req: Request, res: Response) => {
+    videos = []
+    res.send(204)
 })
 
 app.post('/videos', (req: Request, res: Response) => {
@@ -61,6 +59,18 @@ app.post('/videos', (req: Request, res: Response) => {
     }
 })
 
+app.get('/videos/:videoId', (req: Request, res: Response) => {
+    const id = +req.params.videoId
+    const video = videos.find(v => v.id === id)
+    if (!isExistId(id, videos)) {
+        return res.status(404)
+    } else if (video) {
+        return res.status(200).send(video)
+    } else {
+        res.status(404)
+    }
+})
+
 //Delete video id
 app.delete('/videos/:id', (req: Request, res: Response) => {
     const id = +req.params.id
@@ -70,18 +80,14 @@ app.delete('/videos/:id', (req: Request, res: Response) => {
         for (let i = 0; i < videos.length; i++) {
             if (videos[i].id === +req.params.id) {
                 videos.splice(i, 1)
-                res.send(204)
+                res.status(204)
                 return
             }
         }
     }
 })
 
-//All data clear
-app.delete('/all-data', (req: Request, res: Response) => {
-    videos = []
-    res.send(204)
-})
+
 
 app.put('/videos/:id', (req: Request, res: Response) => {
     const id = +req.params.id
