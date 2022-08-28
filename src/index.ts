@@ -73,9 +73,6 @@ app.get('/videos/:videoId', (req: Request, res: Response) => {
 //Delete video id
 app.delete('/videos/:id', (req: Request, res: Response) => {
     const id = +req.params.id
-    if (!id) {
-        return res.status(404)
-    }
     const video = videos.find(v => v.id === id)
     if (!video) {
         return res.status(404)
