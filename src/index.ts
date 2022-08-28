@@ -32,9 +32,9 @@ app.get('/videos/:videoId', (req: Request, res: Response) => {
     const id = +req.params.videoId
     const video = videos.find(v => v.id === id)
     if (!isExistId(id, videos)) {
-        res.status(404)
+        return res.status(404)
     } else if (video) {
-        res.status(200).send(video)
+        return res.status(200).send(video)
     } else {
         res.status(404)
     }
@@ -48,7 +48,7 @@ app.post('/videos', (req: Request, res: Response) => {
     }
     if (newVideo) {
         videos.push(newVideo)
-        res.status(201).send(newVideo)
+        return res.status(201).send(newVideo)
     } else {
         res.status(400).send({
             "errorsMessages": [
@@ -65,7 +65,7 @@ app.post('/videos', (req: Request, res: Response) => {
 app.delete('/videos/:id', (req: Request, res: Response) => {
     const id = +req.params.id
     if (!isExistId(id, videos)) {
-        res.status(404)
+        return res.status(404)
     } else {
         for (let i = 0; i < videos.length; i++) {
             if (videos[i].id === +req.params.id) {
@@ -75,7 +75,6 @@ app.delete('/videos/:id', (req: Request, res: Response) => {
             }
         }
     }
-    res.send(404)
 })
 
 //All data clear
@@ -88,7 +87,7 @@ app.put('/videos/:id', (req: Request, res: Response) => {
     const id = +req.params.id
     const video = videos.find(v => v.id === +req.params.id)
     if (req.body.title.length > 40) {
-        res.status(400).send({
+        return res.status(400).send({
             "errorsMessages": [
                 {
                     "message": "string",
@@ -98,10 +97,10 @@ app.put('/videos/:id', (req: Request, res: Response) => {
         })
     }
     if (!isExistId(id, videos)) {
-        res.status(404)
+        return res.status(404)
     } else if (video) {
         video.title = req.body.title
-        res.status(204).send(video)
+        return res.status(204).send(video)
     } else {
         res.status(404)
     }
