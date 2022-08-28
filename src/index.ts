@@ -45,10 +45,16 @@ app.post('/videos', (req: Request, res: Response) => {
                         "field": "string"
                     }
                 ],
-                resultCode: 1
             })
         return
     }
+    const newVideo = {
+        "id": +(new Date()),
+        "title": "string",
+        "author": "string"
+    }
+    videos.push(newVideo)
+    res.status(201).send(newVideo)
 })
 
 app.get('/videos/:videoId', (req: Request, res: Response) => {
