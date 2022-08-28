@@ -86,6 +86,9 @@ app.delete('/all-data', (req: Request, res: Response) => {
 app.put('/videos/:id', (req: Request, res: Response) => {
     const id = +req.params.id
     const video = videos.find(v => v.id === +req.params.id)
+    if (!isExistId(id, videos)) {
+        return res.status(404)
+    }
     if (req.body.title.length > 40) {
         return res.status(400).send({
             "errorsMessages": [
@@ -96,14 +99,11 @@ app.put('/videos/:id', (req: Request, res: Response) => {
             ]
         })
     }
-    if (!isExistId(id, videos)) {
-        return res.status(404)
-    } else if (video) {
+    if (video) {
         video.title = req.body.title
         return res.status(204).send(video)
-    } else {
-        res.status(404)
     }
+    res.status(404)
 })
 
 
