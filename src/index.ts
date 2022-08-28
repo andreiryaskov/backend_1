@@ -20,10 +20,7 @@ let videos = [
 
 const isExistId = (id: number, isIdArray: any[]) => {
     const index = isIdArray.findIndex(i => i.id === id)
-    if (index > -1) {
-        return index
-    }
-    return false
+    return index > -1
 
 }
 
