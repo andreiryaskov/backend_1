@@ -26,13 +26,13 @@ let videos = [
 
 
 app.get('/videos', (req: Request, res: Response) => {
-    res.status(200).send(videos)
+    return res.status(200).send(videos)
 })
 
 //All data clear
 app.delete('/all-data', (req: Request, res: Response) => {
     videos = []
-    res.send(204)
+    return res.send(204)
 })
 
 app.post('/videos', (req: Request, res: Response) => {
@@ -56,7 +56,7 @@ app.post('/videos', (req: Request, res: Response) => {
     }
 
     videos.push(newVideo)
-    res.status(201).send(newVideo)
+    return res.status(201).send(newVideo)
 })
 
 app.get('/videos/:videoId', (req: Request, res: Response) => {
@@ -65,9 +65,9 @@ app.get('/videos/:videoId', (req: Request, res: Response) => {
     if (!video) {
         return res.status(404)
     } else if (video) {
-        return res.status(200).send(video)
+        return res.send(video)
     } else {
-        res.status(404)
+        return res.status(404)
     }
 })
 
