@@ -64,10 +64,8 @@ app.get('/videos/:videoId', (req: Request, res: Response) => {
     const video = videos.find(v => v.id === id)
     if (!video) {
         return res.status(404)
-    } else if (video) {
-        return res.send(video)
     } else {
-        return res.status(404)
+        return res.send(video)
     }
 })
 
