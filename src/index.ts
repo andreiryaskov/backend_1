@@ -73,13 +73,13 @@ app.get('/videos/:videoId', (req: Request, res: Response) => {
 //Delete video id
 app.delete('/videos/:id', (req: Request, res: Response) => {
     const id = +req.params.id
-    for (let i = 0; i < videos.length; i++) {
-        if (videos[i].id === id) {
-            videos.splice(i, 1)
-            return res.status(204)
-        }
+    const newVideos = videos.filter(v => v.id === id)
+    if (newVideos.length < videos.length) {
+        videos = newVideos
+        res.send(204)
+    } else {
+        res.send(404)
     }
-    res.status(404)
 })
 
 
