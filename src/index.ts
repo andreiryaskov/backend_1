@@ -36,23 +36,18 @@ app.delete('/all-data', (req: Request, res: Response) => {
 })
 
 app.post('/videos', (req: Request, res: Response) => {
-    const newVideo = {
-        "id": videos.length + 1,
-        "title": "string",
-        "author": "string"
-    }
-    if (newVideo) {
-        videos.push(newVideo)
-        return res.status(201).send(newVideo)
-    } else {
+    let title = req.body.title
+    if (!title || typeof  title !== "string" || !title.trim()) {
         res.status(400).send({
-            "errorsMessages": [
-                {
-                    "message": "string",
-                    "field": "string"
-                }
-            ]
-        })
+                "errorsMessages": [
+                    {
+                        "message": "string",
+                        "field": "string"
+                    }
+                ],
+                resultCode: 1
+            })
+        return
     }
 })
 
