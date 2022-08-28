@@ -45,6 +45,7 @@ app.post('/videos', (req: Request, res: Response) => {
                     "field": "string"
                 }
             ],
+            resultCode: 1
         })
         return
     }
