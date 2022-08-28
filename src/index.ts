@@ -18,11 +18,11 @@ let videos = [
     }
 ]
 
-const isExistId = (id: number, isIdArray: any[]) => {
-    const index = isIdArray.findIndex(i => i.id === id)
-    return index > -1
-
-}
+// const isExistId = (id: number, isIdArray: any[]) => {
+//     const index = isIdArray.findIndex(i => i.id === id)
+//     return index > -1
+//
+// }
 
 
 app.get('/videos', (req: Request, res: Response) => {
@@ -61,7 +61,7 @@ app.post('/videos', (req: Request, res: Response) => {
 app.get('/videos/:videoId', (req: Request, res: Response) => {
     const id = +req.params.videoId
     const video = videos.find(v => v.id === id)
-    if (!isExistId(id, videos)) {
+    if (!video) {
         return res.status(404)
     } else if (video) {
         return res.status(200).send(video)
@@ -81,7 +81,7 @@ app.delete('/videos/:id', (req: Request, res: Response) => {
         return res.status(404)
     } else {
         for (let i = 0; i < videos.length; i++) {
-            if (videos[i].id === +req.params.id) {
+            if (videos[i].id === id) {
                 videos.splice(i, 1)
                 res.status(204)
                 return
