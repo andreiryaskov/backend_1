@@ -37,15 +37,15 @@ app.delete('/all-data', (req: Request, res: Response) => {
 
 app.post('/videos', (req: Request, res: Response) => {
     let title = req.body.title
-    if (!title || typeof  title !== "string" || !title.trim()) {
+    if (!title || typeof title !== "string" || !title.trim() || title.length > 40) {
         res.status(400).send({
-                "errorsMessages": [
-                    {
-                        "message": "string",
-                        "field": "string"
-                    }
-                ],
-            })
+            errorsMessages: [
+                {
+                    "message": "string",
+                    "field": "string"
+                }
+            ],
+        })
         return
     }
     const newVideo = {
@@ -53,6 +53,7 @@ app.post('/videos', (req: Request, res: Response) => {
         "title": "string",
         "author": "string"
     }
+
     videos.push(newVideo)
     res.status(201).send(newVideo)
 })
@@ -72,7 +73,11 @@ app.get('/videos/:videoId', (req: Request, res: Response) => {
 //Delete video id
 app.delete('/videos/:id', (req: Request, res: Response) => {
     const id = +req.params.id
-    if (!isExistId(id, videos)) {
+    if (!id) {
+        return res.status(404)
+    }
+    const video = videos.find(v => v.id === id)
+    if (!video) {
         return res.status(404)
     } else {
         for (let i = 0; i < videos.length; i++) {
@@ -86,13 +91,13 @@ app.delete('/videos/:id', (req: Request, res: Response) => {
 })
 
 
-
 app.put('/videos/:id', (req: Request, res: Response) => {
     const id = +req.params.id
-    const video = videos.find(v => v.id === +req.params.id)
-    if (!isExistId(id, videos)) {
-        return res.status(404)
-    }
+    const video = videos.find(v => v.id === id)
+
+    // if (!isExistId(id, videos)) {
+    //     return res.status(404)
+    // }
     if (req.body.title.length > 40) {
         return res.status(400).send({
             "errorsMessages": [
@@ -103,11 +108,21 @@ app.put('/videos/:id', (req: Request, res: Response) => {
             ]
         })
     }
-    if (video) {
-        video.title = req.body.title
-        return res.status(204).send(video)
+    if (!video) {
+        return res.status(404)
     }
-    res.status(404)
+    video.title = req.body.title
+    if (!video || !video.title || !video.title.trim() || video.title.length > 40) {
+        return res.status(400).send({
+            errorsMessages: [
+                {
+                    "message": "string",
+                    "field": "string"
+                }
+            ],
+        })
+    }
+    return res.status(204).send(video)
 })
 
 
