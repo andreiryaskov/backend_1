@@ -16,7 +16,8 @@ videoRouter.get('/', (req: Request, res: Response) => {
 })
 
 videoRouter.post('/', (req: Request, res: Response) => {
-    let title = req.body.title
+    const title = req.body.title
+
     if (title.length > 40 || !title || typeof title !== "string" || !title.trim()) {
         res.status(400).send({
             errorsMessages: [
@@ -54,9 +55,9 @@ videoRouter.get('/:id', (req: Request, res: Response) => {
 
 videoRouter.put('/:id', (req: Request, res: Response) => {
     const id = +req.params.id
-
     const video = videos.find(v => v.id === id)
-    let title = req.body.title
+    const title = req.body.title
+
     if (!title || typeof title !== "string" || !title.trim() || title.length > 40) {
         res.status(400).send({
             errorsMessages: [
@@ -68,6 +69,7 @@ videoRouter.put('/:id', (req: Request, res: Response) => {
         })
         return
     }
+
     if (video) {
         video.title = title
         res.status(204).send(video)
