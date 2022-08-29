@@ -4,9 +4,9 @@ export const videoRouter = Router({})
 
 let videos = [
     {
-        "id": 0,
-        "title": "string",
-        "author": "string"
+        id: 0,
+        title: "string",
+        author: "string"
     }
 ]
 
@@ -21,8 +21,8 @@ videoRouter.post('/', (req: Request, res: Response) => {
         res.status(400).send({
             errorsMessages: [
                 {
-                    "message": "string",
-                    "field": "string"
+                    message: "string",
+                    field: "string"
                 }
             ]
         })
@@ -30,9 +30,9 @@ videoRouter.post('/', (req: Request, res: Response) => {
     }
 
     const newVideo = {
-        "id": videos.length + 1,
-        "title": title,
-        "author": "string"
+        id: videos.length + 1,
+        title: title,
+        author: "string"
     }
     videos.push(newVideo)
     res.status(201).send(newVideo)
@@ -57,8 +57,8 @@ videoRouter.put('/:id', (req: Request, res: Response) => {
         res.status(400).send({
             errorsMessages: [
                 {
-                    "message": "string",
-                    "field": "string"
+                    message: "string",
+                    field: "string"
                 }
             ]
         })
