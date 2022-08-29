@@ -17,7 +17,7 @@ videoRouter.get('/', (req: Request, res: Response) => {
 
 videoRouter.post('/', (req: Request, res: Response) => {
     let title = req.body.title
-    if (!title || typeof title !== "string" || !title.trim() || title.length > 40) {
+    if (title.length > 40 || !title || typeof title !== "string" || !title.trim()) {
         res.status(400).send({
             errorsMessages: [
                 {
@@ -40,7 +40,7 @@ videoRouter.post('/', (req: Request, res: Response) => {
 
 videoRouter.get('/:id', (req: Request, res: Response) => {
     const id = +req.params.id
-    const video = videos.find(v => v.id !== id)
+    const video = videos.find(v => v.id === id)
     if (video) {
         res.status(200).send(video)
         return
@@ -67,6 +67,7 @@ videoRouter.put('/:id', (req: Request, res: Response) => {
     if (video) {
         video.title = title
         res.status(204).send(video)
+        return
     } else {
         res.send(404)
     }
@@ -78,7 +79,24 @@ videoRouter.delete('/:id', (req: Request, res: Response) => {
     if(newVideo.length < videos.length) {
         videos = newVideo
         res.send(204)
+        return
     } else {
         res.send(404)
+    }
+})
+
+videoRouter.delete('/:id', (req: Request, res: Response) => {
+    const id = +req.params.id
+    const newVideo = videos.find(v => v.id === id)
+    if(newVideo) {
+        for (let i = 0; i < videos.length; i++) {
+            if (videos[i].id === id) {
+                videos.splice(i, 1)
+                res.status(204)
+                return
+            }
+        }
+    } else {
+        res.status(404)
     }
 })
