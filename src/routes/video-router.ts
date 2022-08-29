@@ -70,18 +70,23 @@ videoRouter.put('/:id', (req: Request, res: Response) => {
 //Delete video id
 videoRouter.delete('/:id', (req: Request, res: Response) => {
     const id = +req.params.id
-    const newVideosArray = videos.filter(v => v.id !== id)
+    const video = videos.find(v => v.id === id)
 
-    if (videos.length === newVideosArray.length) {
+    // if (videos.length === newVideosArray.length) {
+    //
+    // }
+    if (video) {
+        for (let i = 0; i < videos.length; i++) {
+            if (videos[i].id === id) {
+                videos.splice(i, 1)
+                return res.send(204)
+            }
+        }
+    } else {
         return res.status(404)
     }
 
-    for (let i = 0; i < videos.length; i++) {
-        if (videos[i].id === id) {
-            videos.splice(i, 1)
-            return res.send(204)
-        }
-    }
+
 
 
 })
