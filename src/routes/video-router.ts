@@ -49,16 +49,16 @@ videoRouter.put('/:id', (req: Request, res: Response) => {
 
     if (updateVideo) {
 
-        if (!title || title.length > 40 || !title.trim() || title !== "string") {
-            return res.status(400).send({
-                errorsMessages: [
-                    {
-                        "message": "title is incorrect values",
-                        "field": "string"
-                    }
-                ]
-            })
-        }
+        // if (!title || title.length > 40 || !title.trim() || title !== "string") {
+        //     return res.status(400).send({
+        //         errorsMessages: [
+        //             {
+        //                 "message": "title is incorrect values",
+        //                 "field": "string"
+        //             }
+        //         ]
+        //     })
+        // }
 
         updateVideo.title = title
         res.status(204).send(updateVideo)
