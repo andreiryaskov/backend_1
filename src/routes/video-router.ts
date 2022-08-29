@@ -35,10 +35,12 @@ videoRouter.get('/:id', (req: Request, res: Response) => {
     const id = +req.params.id
     const video = videos.find(v => v.id === id)
 
-    if (!video) {
+    if (video) {
+        return res.status(200).send(video)
+    } else {
         return res.status(404)
     }
-    res.status(200).send(video)
+
 })
 
 videoRouter.put('/:id', (req: Request, res: Response) => {
@@ -61,7 +63,7 @@ videoRouter.put('/:id', (req: Request, res: Response) => {
         // }
 
         updateVideo.title = title
-        res.status(204).send(updateVideo)
+        return res.status(204).send(updateVideo)
     } else {
         return res.status(404)
     }
@@ -79,14 +81,13 @@ videoRouter.delete('/:id', (req: Request, res: Response) => {
         for (let i = 0; i < videos.length; i++) {
             if (videos[i].id === id) {
                 videos.splice(i, 1)
-                return res.send(204)
+                res.send(204)
+                return
             }
         }
     } else {
         return res.status(404)
     }
-
-
 
 
 })
