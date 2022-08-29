@@ -20,7 +20,7 @@ videoRouter.post('/', (req: Request, res: Response) => {
 
     if (!title || title.length > 40 || !title.trim() || title !== "string") {
         return res.status(400).send({
-            "errorsMessages": [
+            errorsMessages: [
                 {
                     "message": "string",
                     "field": "string"
