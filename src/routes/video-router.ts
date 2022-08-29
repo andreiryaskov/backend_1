@@ -31,7 +31,7 @@ videoRouter.post('/', (req: Request, res: Response) => {
 
     const newVideo = {
         "id": videos.length + 1,
-        "title": title,
+        "title": "title",
         "author": "string"
     }
     videos.push(newVideo)
