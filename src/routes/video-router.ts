@@ -71,7 +71,9 @@ videoRouter.delete('/:id', (req: Request, res: Response) => {
 
     if (videos.length === newVideosArray.length) {
         return res.status(404)
+    } else {
+        return res.status(204).send(newVideosArray)
     }
 
-    res.status(204).send(newVideosArray)
+
 })
