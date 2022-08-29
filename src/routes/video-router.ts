@@ -41,7 +41,10 @@ videoRouter.post('/', (req: Request, res: Response) => {
 
 videoRouter.get('/:id', (req: Request, res: Response) => {
     const id = +req.params.id
-
+    if (!id) {
+        res.status(404)
+        return
+    }
 
     const video = videos.find(v => v.id === id)
 
@@ -55,6 +58,10 @@ videoRouter.get('/:id', (req: Request, res: Response) => {
 
 videoRouter.put('/:id', (req: Request, res: Response) => {
     const id = +req.params.id
+    if (!id) {
+        res.status(404)
+        return
+    }
     const video = videos.find(v => v.id === id)
     const title = req.body.title
 
@@ -94,6 +101,10 @@ videoRouter.put('/:id', (req: Request, res: Response) => {
 
 videoRouter.delete('/:id', (req: Request, res: Response) => {
     const id = +req.params.id
+    if (!id) {
+        res.status(404)
+        return
+    }
     const newVideo = videos.find(v => v.id === id)
     if (newVideo) {
         for (let i = 0; i < videos.length; i++) {
