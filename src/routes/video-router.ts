@@ -19,7 +19,14 @@ videoRouter.post('/', (req: Request, res: Response) => {
     const title = req.body.title
 
     if (!title || title.length > 40 || !title.trim() || title !== "string") {
-        return res.status(400)
+        return res.status(400).send({
+            errorsMessages: [
+                {
+                    "message": "string",
+                    "field": "string"
+                }
+            ]
+        })
     }
 
     const newVideo = {
