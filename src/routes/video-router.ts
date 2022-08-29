@@ -70,7 +70,7 @@ videoRouter.put('/:id', (req: Request, res: Response) => {
 
     if (video) {
         video.title = title
-        res.status(204).send(video)
+        res.status(204)
         return
     } else {
         res.status(404)
