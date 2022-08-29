@@ -24,8 +24,7 @@ videoRouter.post('/', (req: Request, res: Response) => {
                     "message": "string",
                     "field": "string"
                 }
-            ],
-            resultCode: 1
+            ]
         })
         return
     }
