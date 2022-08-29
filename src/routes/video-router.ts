@@ -30,7 +30,7 @@ videoRouter.post('/', (req: Request, res: Response) => {
     }
 
     const newVideo = {
-        "id": +(new Date()),
+        "id": videos.length + 1,
         "title": title,
         "author": "string"
     }
