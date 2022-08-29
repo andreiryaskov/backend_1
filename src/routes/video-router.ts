@@ -12,7 +12,7 @@ let videos = [
 
 
 videoRouter.get('/', (req: Request, res: Response) => {
-    res.send(videos)
+    res.status(200).send(videos)
 })
 
 videoRouter.post('/', (req: Request, res: Response) => {
@@ -31,7 +31,7 @@ videoRouter.post('/', (req: Request, res: Response) => {
 
     const newVideo = {
         id: videos.length + 1,
-        title: "title",
+        title: title,
         author: "string"
     }
     videos.push(newVideo)
@@ -69,7 +69,7 @@ videoRouter.put('/:id', (req: Request, res: Response) => {
         res.status(204).send(video)
         return
     } else {
-        res.send(404)
+        res.status(404)
     }
 })
 
@@ -78,10 +78,10 @@ videoRouter.delete('/:id', (req: Request, res: Response) => {
     const newVideo = videos.filter(v => v.id !== id)
     if(newVideo.length < videos.length) {
         videos = newVideo
-        res.send(204)
+        res.status(204)
         return
     } else {
-        res.send(404)
+        res.status(404)
     }
 })
 
