@@ -55,7 +55,7 @@ videoRouter.put('/:id', (req: Request, res: Response) => {
     const title = req.body.title
     const updateVideo = videos.find(v => v.id === id)
 
-    if (!title || title.length > 40 || !title.trim() || title !== "string") {
+    if (title.length > 40) {
         return res.status(400).send({
             errorsMessages: [
                 {
