@@ -77,32 +77,32 @@ videoRouter.put('/:id', (req: Request, res: Response) => {
     }
 })
 
-// videoRouter.delete('/:id', (req: Request, res: Response) => {
-//     const id = +req.params.id
-//
-//     const newVideo = videos.filter(v => v.id !== id)
-//     if (newVideo.length < videos.length) {
-//         videos = newVideo
-//         res.status(204)
-//         return
-//     } else {
-//         res.status(404)
-//     }
-// })
-
 videoRouter.delete('/:id', (req: Request, res: Response) => {
     const id = +req.params.id
-    const newVideo = videos.find(v => v.id === id)
+    const newVideo = videos.filter(v => v.id !== id)
 
-    if (newVideo) {
-        for (let i = 0; i < videos.length; i++) {
-            if (videos[i].id === id) {
-                videos.splice(i, 1)
-                res.status(204)
-                return
-            }
-        }
+    if (newVideo.length < videos.length) {
+        videos = newVideo
+        res.status(204)
+        return
     } else {
         res.status(404)
     }
 })
+
+// videoRouter.delete('/:id', (req: Request, res: Response) => {
+//     const id = +req.params.id
+//     const newVideo = videos.find(v => v.id === id)
+//
+//     if (newVideo) {
+//         for (let i = 0; i < videos.length; i++) {
+//             if (videos[i].id === id) {
+//                 videos.splice(i, 1)
+//                 res.status(204)
+//                 return
+//             }
+//         }
+//     } else {
+//         res.status(404)
+//     }
+// })
