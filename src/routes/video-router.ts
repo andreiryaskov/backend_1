@@ -101,6 +101,11 @@ videoRouter.delete('/:id', (req: Request, res: Response) => {
     }
 })
 
+videoRouter.delete('/all-data', (req: Request, res: Response) => {
+    videos = []
+    res.status(204)
+})
+
 // videoRouter.delete('/:id', (req: Request, res: Response) => {
 //     const id = +req.params.id
 //     const newVideo = videos.find(v => v.id === id)
