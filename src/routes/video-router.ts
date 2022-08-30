@@ -79,16 +79,7 @@ videoRouter.get('/:id', (req: Request, res: Response) => {
 
 videoRouter.put('/:id', (req: Request, res: Response) => {
     const id = +req.params.id
-
-
-
     const video = videos.find(v => v.id === id)
-
-    if (!video) {
-        res.status(404)
-        return
-    }
-
     const title = req.body.title
 
     if (!title || typeof title !== "string" || !title.trim() || title.length > 40) {
@@ -114,14 +105,7 @@ videoRouter.put('/:id', (req: Request, res: Response) => {
 
 videoRouter.delete('/:id', (req: Request, res: Response) => {
     const id = +req.params.id
-
-
     const newVideo = videos.filter(v => v.id !== id)
-
-    if (!newVideo) {
-        res.status(404)
-        return
-    }
 
     if (newVideo.length < videos.length) {
         videos = newVideo
