@@ -17,6 +17,17 @@ videoRouter.get('/', (req: Request, res: Response) => {
 
 videoRouter.post('/', (req: Request, res: Response) => {
     const title = req.body.title
+    if (title === null) {
+        res.status(400).send({
+            errorsMessages: [
+                {
+                    message: "string",
+                    field: "title"
+                }
+            ]
+        })
+        return
+    }
 
     if (title.length > 40 || !title || typeof title !== "string" || !title.trim()) {
         res.status(400).send({
