@@ -7,6 +7,16 @@ let videos = [
         id: 0,
         title: "string",
         author: "string"
+    },
+    {
+        id: 1,
+        title: "string",
+        author: "string"
+    },
+    {
+        id: 2,
+        title: "string",
+        author: "string"
     }
 ]
 
@@ -52,11 +62,12 @@ videoRouter.post('/', (req: Request, res: Response) => {
 
 videoRouter.get('/:id', (req: Request, res: Response) => {
     const id = +req.params.id
-    if (!id) {
+    const video = videos.find(v => v.id === id)
+
+    if (!video) {
         res.status(404)
         return
     }
-    const video = videos.find(v => v.id === id)
 
     if (video) {
         res.status(200).send(video)
@@ -68,11 +79,16 @@ videoRouter.get('/:id', (req: Request, res: Response) => {
 
 videoRouter.put('/:id', (req: Request, res: Response) => {
     const id = +req.params.id
-    if (!id) {
+
+
+
+    const video = videos.find(v => v.id === id)
+
+    if (!video) {
         res.status(404)
         return
     }
-    const video = videos.find(v => v.id === id)
+
     const title = req.body.title
 
     if (!title || typeof title !== "string" || !title.trim() || title.length > 40) {
@@ -99,12 +115,13 @@ videoRouter.put('/:id', (req: Request, res: Response) => {
 videoRouter.delete('/:id', (req: Request, res: Response) => {
     const id = +req.params.id
 
-    if (!id) {
+
+    const newVideo = videos.filter(v => v.id !== id)
+
+    if (!newVideo) {
         res.status(404)
         return
     }
-
-    const newVideo = videos.filter(v => v.id !== id)
 
     if (newVideo.length < videos.length) {
         videos = newVideo
