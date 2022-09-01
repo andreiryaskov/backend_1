@@ -57,14 +57,10 @@ videoRouter.post('/', (req: Request, res: Response) => {
     const tomorrowInNumber = inThisMoment + day
     const tomorrowInDate = new Date(tomorrowInNumber)
 
-
-
-
-
     const newVideo = {
         "id": videos.length + 1,
-        "title": "string",
-        "author": "string",
+        "title": title,
+        "author": author,
         "canBeDownloaded": true,
         "minAgeRestriction": null,
         "createdAt": new Date(),
@@ -89,6 +85,7 @@ videoRouter.get('/:id', (req: Request, res: Response) => {
         return
     } else {
         res.status(200).send(video)
+        return;
     }
 })
 
@@ -201,6 +198,7 @@ videoRouter.put('/:id', (req: Request, res: Response) => {
         return
     } else {
         res.status(404)
+        return;
     }
 })
 
@@ -233,5 +231,6 @@ videoRouter.delete('/:id', (req: Request, res: Response) => {
         }
     } else {
         res.status(404)
+        return;
     }
 })
