@@ -4,19 +4,16 @@ export const videoRouter = Router({})
 
 let videos = [
     {
-        id: 0,
-        title: "string",
-        author: "string"
-    },
-    {
-        id: 1,
-        title: "string",
-        author: "string"
-    },
-    {
-        id: 2,
-        title: "string",
-        author: "string"
+        "id": 0,
+        "title": "string",
+        "author": "string",
+        "canBeDownloaded": true,
+        "minAgeRestriction": null,
+        "createdAt": "2022-09-01T08:30:04.635Z",
+        "publicationDate": "2022-09-01T08:30:04.635Z",
+        "availableResolutions": [
+            "P144"
+        ]
     }
 ]
 
@@ -26,8 +23,13 @@ videoRouter.get('/', (req: Request, res: Response) => {
 })
 
 videoRouter.post('/', (req: Request, res: Response) => {
-    const title = req.body.title
-    if (title === null) {
+    const title = req.body.title //40
+    const author = req.body.author //20
+
+    if (title.length > 40
+        || !title
+        || typeof title !== "string"
+        || !title.trim()) {
         res.status(400).send({
             errorsMessages: [
                 {
@@ -38,13 +40,15 @@ videoRouter.post('/', (req: Request, res: Response) => {
         })
         return
     }
-
-    if (title.length > 40 || !title || typeof title !== "string" || !title.trim()) {
+    if (author.length > 20
+        || !author
+        || typeof author !== "string"
+        || !author.trim()) {
         res.status(400).send({
             errorsMessages: [
                 {
                     message: "string",
-                    field: "title"
+                    field: "author"
                 }
             ]
         })
@@ -52,10 +56,19 @@ videoRouter.post('/', (req: Request, res: Response) => {
     }
 
     const newVideo = {
-        id: videos.length + 1,
-        title: title,
-        author: "string"
+        "id": 0,
+        "title": "string",
+        "author": "string",
+        "canBeDownloaded": true,
+        "minAgeRestriction": null,
+        "createdAt": new Date(),
+        "publicationDate": new Date(),
+        "availableResolutions": [
+            "P144"
+        ]
     }
+
+    // @ts-ignore
     videos.push(newVideo)
     res.status(201).send(newVideo)
 })
@@ -67,13 +80,8 @@ videoRouter.get('/:id', (req: Request, res: Response) => {
     if (!video) {
         res.status(404)
         return
-    }
-
-    if (video) {
-        res.status(200).send(video)
-        return
     } else {
-        res.status(404)
+        res.status(200).send(video)
     }
 })
 
@@ -81,8 +89,12 @@ videoRouter.put('/:id', (req: Request, res: Response) => {
     const id = +req.params.id
     const video = videos.find(v => v.id === id)
     const title = req.body.title
+    const author = req.body.author
 
-    if (!title || typeof title !== "string" || !title.trim() || title.length > 40) {
+    if (title.length > 40
+        || !title
+        || typeof title !== "string"
+        || !title.trim()) {
         res.status(400).send({
             errorsMessages: [
                 {
@@ -93,9 +105,24 @@ videoRouter.put('/:id', (req: Request, res: Response) => {
         })
         return
     }
+    if (author.length > 20
+        || !author
+        || typeof author !== "string"
+        || !author.trim()) {
+        res.status(400).send({
+            errorsMessages: [
+                {
+                    message: "string",
+                    field: "author"
+                }
+            ]
+        })
+        return
+    }
 
     if (video) {
         video.title = title
+        video.author = author
         res.status(204)
         return
     } else {
