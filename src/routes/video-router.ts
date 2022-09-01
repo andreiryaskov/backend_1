@@ -54,8 +54,23 @@ videoRouter.post('/', (req: Request, res: Response) => {
         })
         return
     }
+    // new Date() => 2022-09-01T13:52:07.956Z
+    // Date.now() => 11232145217491
 
-    const today = new Date()
+    // +(new Date()) => 12312451412
+
+    const second = 1000
+    const minute = second * 60
+    const hour = minute * 60
+    const day = hour * 24
+
+    const inThisMoment = Date.now()
+    const tomorrowInNumber = inThisMoment + day
+    const tomorrowInDate = new Date(tomorrowInNumber)
+
+
+
+
 
     const newVideo = {
         "id": videos.length + 1,
@@ -63,8 +78,8 @@ videoRouter.post('/', (req: Request, res: Response) => {
         "author": "string",
         "canBeDownloaded": true,
         "minAgeRestriction": null,
-        "createdAt": today,
-        "publicationDate": today.setDate(today.getDate() + 1),
+        "createdAt": new Date(),
+        "publicationDate": tomorrowInDate,
         "availableResolutions": [
             "P144"
         ]
