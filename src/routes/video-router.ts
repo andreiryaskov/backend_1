@@ -88,8 +88,70 @@ videoRouter.get('/:id', (req: Request, res: Response) => {
 videoRouter.put('/:id', (req: Request, res: Response) => {
     const id = +req.params.id
     const video = videos.find(v => v.id === id)
-    const title = req.body.title
-    const author = req.body.author
+    const title = req.body.title //
+    const author = req.body.author //
+    const minAgeRestriction = req.body.minAgeRestriction //
+    const availableResolutions = req.body.availableResolutions //
+    const canBeDownloaded = req.body.canBeDownloaded //
+    const publicationDate = req.body.publicationDate //
+    // const dateForUpdate = {
+    //     "title": title,
+    //     "author": author,
+    //     "availableResolutions": [
+    //         "P144"
+    //     ],
+    //     "canBeDownloaded": true,
+    //     "minAgeRestriction": 18,
+    //     "publicationDate": new Date()
+    // }
+
+    if (typeof publicationDate !== "string") {
+        res.status(400).send({
+            errorsMessages: [
+                {
+                    message: "publicationDate !== string",
+                    field: "publicationDate"
+                }
+            ]
+        })
+        return
+    }
+
+    if (typeof canBeDownloaded !== "boolean") {
+        res.status(400).send({
+            errorsMessages: [
+                {
+                    message: "canBeDownloaded !== boolean",
+                    field: "canBeDownloaded"
+                }
+            ]
+        })
+        return
+    }
+
+    if (!availableResolutions || typeof availableResolutions[0] !== "string" || !availableResolutions.trim()) {
+        res.status(400).send({
+            errorsMessages: [
+                {
+                    message: "string",
+                    field: "availableResolutions"
+                }
+            ]
+        })
+        return
+    }
+
+    if (minAgeRestriction < 1 || minAgeRestriction > 18) {
+        res.status(400).send({
+            errorsMessages: [
+                {
+                    message: "string",
+                    field: "minAgeRestriction"
+                }
+            ]
+        })
+        return
+    }
 
     if (title.length > 40
         || !title
@@ -120,9 +182,14 @@ videoRouter.put('/:id', (req: Request, res: Response) => {
         return
     }
 
+
     if (video) {
         video.title = title
         video.author = author
+        video.minAgeRestriction = minAgeRestriction
+        video.canBeDownloaded = canBeDownloaded
+        video.availableResolutions = availableResolutions
+        video.publicationDate = publicationDate
         res.status(204)
         return
     } else {
