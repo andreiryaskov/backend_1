@@ -14,6 +14,7 @@ videoRouter.get('/', (req: Request, res: Response) => {
 videoRouter.post('/', (req: Request, res: Response) => {
     const title = req.body.title //40
     const author = req.body.author //20
+    const availableResolutions = req.body.availableResolutions
 
     if (title.length > 40
         || !title
@@ -63,11 +64,9 @@ videoRouter.post('/', (req: Request, res: Response) => {
         "author": author,
         "canBeDownloaded": true,
         "minAgeRestriction": null,
-        "createdAt": new Date(),
-        "publicationDate": tomorrowInDate,
-        "availableResolutions": [
-            "P144"
-        ]
+        "createdAt": new Date().toISOString(),
+        "publicationDate": tomorrowInDate.toISOString(),
+        "availableResolutions": availableResolutions
     }
 
     // @ts-ignore
