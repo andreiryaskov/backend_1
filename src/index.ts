@@ -10,6 +10,7 @@ const middlewareParser = bodyParser({})
 app.use(middlewareParser)
 app.use(cors())
 app.use('/videos', videoRouter)
+app.use('/testing', videoRouter)
 
 
 

@@ -1,25 +1,14 @@
 import {Request, Response, Router} from "express";
+import {videos} from "../db-in-memory";
 
 export const videoRouter = Router({})
 
-let videos = [
-    {
-        "id": 0,
-        "title": "string",
-        "author": "string",
-        "canBeDownloaded": true,
-        "minAgeRestriction": null,
-        "createdAt": "2022-09-01T08:30:04.635Z",
-        "publicationDate": "2022-09-01T08:30:04.635Z",
-        "availableResolutions": [
-            "P144"
-        ]
-    }
-]
+
 
 
 videoRouter.get('/', (req: Request, res: Response) => {
     res.status(200).send(videos)
+    return
 })
 
 videoRouter.post('/', (req: Request, res: Response) => {
@@ -88,6 +77,7 @@ videoRouter.post('/', (req: Request, res: Response) => {
     // @ts-ignore
     videos.push(newVideo)
     res.status(201).send(newVideo)
+    return;
 })
 
 videoRouter.get('/:id', (req: Request, res: Response) => {
@@ -227,10 +217,7 @@ videoRouter.put('/:id', (req: Request, res: Response) => {
 //     }
 // })
 
-videoRouter.delete('/all-data', (req: Request, res: Response) => {
-    videos = []
-    res.status(204).send(videos)
-})
+
 
 videoRouter.delete('/:id', (req: Request, res: Response) => {
     const id = +req.params.id
