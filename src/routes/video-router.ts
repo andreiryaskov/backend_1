@@ -56,7 +56,7 @@ videoRouter.post('/', (req: Request, res: Response) => {
     }
 
     const newVideo = {
-        "id": 0,
+        "id": videos.length + 1,
         "title": "string",
         "author": "string",
         "canBeDownloaded": true,
