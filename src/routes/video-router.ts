@@ -115,6 +115,10 @@ videoRouter.put('/:id', (req: Request, res: Response) => {
             ]
         })
         return
+    } else {
+        if (video) {
+            video.publicationDate = publicationDate
+        }
     }
 
     if (typeof canBeDownloaded !== "boolean") {
@@ -127,6 +131,10 @@ videoRouter.put('/:id', (req: Request, res: Response) => {
             ]
         })
         return
+    } else {
+        if (video) {
+            video.canBeDownloaded = canBeDownloaded
+        }
     }
 
     if (!availableResolutions || typeof availableResolutions[0] !== "string" || !availableResolutions.trim()) {
@@ -139,6 +147,10 @@ videoRouter.put('/:id', (req: Request, res: Response) => {
             ]
         })
         return
+    } else {
+        if (video) {
+            video.availableResolutions = availableResolutions
+        }
     }
 
     if (minAgeRestriction < 1 || minAgeRestriction > 18) {
@@ -151,6 +163,10 @@ videoRouter.put('/:id', (req: Request, res: Response) => {
             ]
         })
         return
+    } else {
+        if (video) {
+            video.minAgeRestriction = minAgeRestriction
+        }
     }
 
     if (title.length > 40
@@ -186,10 +202,6 @@ videoRouter.put('/:id', (req: Request, res: Response) => {
     if (video) {
         video.title = title
         video.author = author
-        video.minAgeRestriction = minAgeRestriction
-        video.canBeDownloaded = canBeDownloaded
-        video.availableResolutions = availableResolutions
-        video.publicationDate = publicationDate
         res.status(204)
         return
     } else {
