@@ -55,14 +55,16 @@ videoRouter.post('/', (req: Request, res: Response) => {
         return
     }
 
+    const today = new Date()
+
     const newVideo = {
         "id": videos.length + 1,
         "title": "string",
         "author": "string",
         "canBeDownloaded": true,
         "minAgeRestriction": null,
-        "createdAt": new Date(),
-        "publicationDate": new Date(),
+        "createdAt": today,
+        "publicationDate": today.setDate(today.getDate() + 1),
         "availableResolutions": [
             "P144"
         ]
@@ -210,9 +212,9 @@ videoRouter.put('/:id', (req: Request, res: Response) => {
 //     }
 // })
 
-videoRouter.delete('/all-data', (req: Request, res: Response) => {
+videoRouter.delete('/testing/all-data', (req: Request, res: Response) => {
     videos = []
-    res.status(204)
+    res.status(204).send(videos)
 })
 
 videoRouter.delete('/:id', (req: Request, res: Response) => {
