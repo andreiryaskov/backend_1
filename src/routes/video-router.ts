@@ -212,7 +212,7 @@ videoRouter.put('/:id', (req: Request, res: Response) => {
 //     }
 // })
 
-videoRouter.delete('/testing/all-data', (req: Request, res: Response) => {
+videoRouter.delete('/all-data', (req: Request, res: Response) => {
     videos = []
     res.status(204).send(videos)
 })
