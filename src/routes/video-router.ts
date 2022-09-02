@@ -13,7 +13,7 @@ videoRouter.post('/', (req: Request, res: Response) => {
     const title = req.body.title //40
     const author = req.body.author //20
     const availableResolutions = req.body.availableResolutions
-
+console.log(title, 'title')
     if (!title
         || title.length > 40
         || typeof title !== "string"
