@@ -36,11 +36,7 @@ videoRouter.post('/', (req: Request, res: Response) => {
         || !author.trim()) {
         res.status(400).send({
             errorsMessages: [
-                { message: "string", field: "author" },
-                {
-                    message: "string",
-                    field: "title"
-                }
+                { message: "string", field: "author" }
             ]
         })
         return
