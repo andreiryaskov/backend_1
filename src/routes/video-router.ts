@@ -14,8 +14,8 @@ videoRouter.post('/', (req: Request, res: Response) => {
     const author = req.body.author //20
     const availableResolutions = req.body.availableResolutions
 
-    if (title.length > 40
-        || !title
+    if (!title
+        || title.length > 40
         || typeof title !== "string"
         || !title.trim()) {
         res.status(400).send({
@@ -28,8 +28,10 @@ videoRouter.post('/', (req: Request, res: Response) => {
         })
         return
     }
-    if (author.length > 20
-        || !author
+
+    console.log('author', author)
+    if (!author ||
+        author.length > 20
         || typeof author !== "string"
         || !author.trim()) {
         res.status(400).send({
@@ -56,6 +58,7 @@ videoRouter.post('/', (req: Request, res: Response) => {
     const tomorrowInNumber = inThisMoment + day
     const tomorrowInDate = new Date(tomorrowInNumber)
 
+    console.log("videos",videos)
     const newVideo = {
         "id": videos.length + 1,
         "title": title,
