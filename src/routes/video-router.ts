@@ -19,8 +19,7 @@ videoRouter.post('/', (req: Request, res: Response) => {
 
     const array = []
 console.log(title, 'title')
-    if (!title
-        || title === null
+    if (!!title || !title
         || title.length > 40
         || typeof title !== "string"
         || !title.trim()) {
@@ -41,10 +40,7 @@ console.log(title, 'title')
     }
 
     console.log('author', author)
-    if (!author
-        || author === null
-        || author.length > 20
-        || typeof author !== "string"
+    if (!!author || !author || author.length > 20 || typeof author !== "string"
         || !author.trim()) {
         array.push({
                 message: "string",
