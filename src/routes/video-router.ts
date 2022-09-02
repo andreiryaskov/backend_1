@@ -20,7 +20,6 @@ videoRouter.post('/', (req: Request, res: Response) => {
         || !title.trim()) {
         res.status(400).send({
             errorsMessages: [
-                { message: "string", field: "title" },
                 {
                     message: "string",
                     field: "title"
@@ -108,6 +107,10 @@ videoRouter.put('/:id', (req: Request, res: Response) => {
         res.status(400).send({
             errorsMessages: [
                 {
+                    message: "string",
+                    field: "title"
+                },
+                {
                     message: "publicationDate !== string",
                     field: "publicationDate"
                 }
@@ -119,6 +122,10 @@ videoRouter.put('/:id', (req: Request, res: Response) => {
     if (typeof canBeDownloaded !== "boolean") {
         res.status(400).send({
             errorsMessages: [
+                {
+                    message: "string",
+                    field: "title"
+                },
                 {
                     message: "canBeDownloaded !== boolean",
                     field: "canBeDownloaded"
@@ -133,6 +140,10 @@ videoRouter.put('/:id', (req: Request, res: Response) => {
             errorsMessages: [
                 {
                     message: "string",
+                    field: "title"
+                },
+                {
+                    message: "string",
                     field: "availableResolutions"
                 }
             ]
@@ -143,6 +154,10 @@ videoRouter.put('/:id', (req: Request, res: Response) => {
     if (minAgeRestriction < 1 || minAgeRestriction > 18) {
         res.status(400).send({
             errorsMessages: [
+                {
+                    message: "string",
+                    field: "title"
+                },
                 {
                     message: "string",
                     field: "minAgeRestriction"
@@ -172,6 +187,10 @@ videoRouter.put('/:id', (req: Request, res: Response) => {
         || !author.trim()) {
         res.status(400).send({
             errorsMessages: [
+                {
+                    message: "string",
+                    field: "title"
+                },
                 {
                     message: "string",
                     field: "author"
