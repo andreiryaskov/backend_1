@@ -22,7 +22,7 @@ videoRouter.post('/', (req: Request, res: Response) => {
             errorsMessages: [
                 {
                     message: "string",
-                    field: title
+                    field: title ? title : "title"
                 }
             ]
         })
@@ -36,7 +36,10 @@ videoRouter.post('/', (req: Request, res: Response) => {
         || !author.trim()) {
         res.status(400).send({
             errorsMessages: [
-                { message: "string", field: author }
+                {
+                    message: "string",
+                    field: author ? author : "author"
+                }
             ]
         })
         return
@@ -59,7 +62,7 @@ videoRouter.post('/', (req: Request, res: Response) => {
     const createdAt = new Date(now)
     now.setDate(now.getDate() + 1)
 
-    console.log("videos",videos)
+    console.log("videos", videos)
     const newVideo = {
         "id": videos.length + 1,
         "title": title,
