@@ -20,7 +20,6 @@ videoRouter.post('/', (req: Request, res: Response) => {
         || !title.trim()) {
         res.status(400).send({
             errorsMessages: [
-                { message: "string", field: "author" },
                 {
                     message: "string",
                     field: "title"
@@ -37,10 +36,9 @@ videoRouter.post('/', (req: Request, res: Response) => {
         || !author.trim()) {
         res.status(400).send({
             errorsMessages: [
-                { message: "string", field: "author" },
                 {
                     message: "string",
-                    field: "title"
+                    field: "author"
                 }
 
             ]
