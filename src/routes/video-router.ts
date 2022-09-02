@@ -9,24 +9,34 @@ videoRouter.get('/', (req: Request, res: Response) => {
     return
 })
 
+
+
+
 videoRouter.post('/', (req: Request, res: Response) => {
     const title = req.body.title //40
     const author = req.body.author //20
     const availableResolutions = req.body.availableResolutions
+
+    const array = []
 console.log(title, 'title')
     if (!title
         || title.length > 40
         || typeof title !== "string"
         || !title.trim()) {
-        res.status(400).send({
-            errorsMessages: [
-                {
+        array.push({
                     message: "string",
                     field: "title"
                 }
-            ]
-        })
-        return
+        )
+        // res.status(400).send({
+        //     errorsMessages: [
+        //         {
+        //             message: "string",
+        //             field: "title"
+        //         }
+        //     ]
+        // })
+        // return
     }
 
     console.log('author', author)
@@ -34,15 +44,25 @@ console.log(title, 'title')
         || author.length > 20
         || typeof author !== "string"
         || !author.trim()) {
-        res.status(400).send({
-            errorsMessages: [
-                {
-                    message: "string",
-                    field: "author"
-                }
-            ]
-        })
-        return
+        array.push(array.push({
+                message: "string",
+                field: "author"
+            }
+        ))
+        // res.status(400).send({
+        //     errorsMessages: [
+        //         {
+        //             message: "string",
+        //             field: "author"
+        //         },
+        //         {
+        //             message: "string",
+        //             field: "title"
+        //         }
+        //     ]
+        // })
+        // return
+        return res.status(400).send({errorsMessages: array})
     }
     // new Date() => 2022-09-01T13:52:07.956Z
     // Date.now() => 11232145217491
