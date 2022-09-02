@@ -44,11 +44,11 @@ console.log(title, 'title')
         || author.length > 20
         || typeof author !== "string"
         || !author.trim()) {
-        array.push(array.push({
+        array.push({
                 message: "string",
                 field: "author"
             }
-        ))
+        )
         // res.status(400).send({
         //     errorsMessages: [
         //         {
