@@ -22,7 +22,7 @@ videoRouter.post('/', (req: Request, res: Response) => {
             errorsMessages: [
                 {
                     message: "string",
-                    field: title ? title : "title"
+                    field: "title"
                 }
             ]
         })
@@ -38,7 +38,7 @@ videoRouter.post('/', (req: Request, res: Response) => {
             errorsMessages: [
                 {
                     message: "string",
-                    field: author ? author : "author"
+                    field: "author"
                 }
             ]
         })
