@@ -222,12 +222,12 @@ videoRouter.delete('/:id', (req: Request, res: Response) => {
         for (let i = 0; i < videos.length; i++) {
             if (videos[i].id === id) {
                 videos.splice(i, 1)
-                res.status(204).send(videos)
+                res.status(204)
                 return
             }
         }
     } else {
         res.status(404)
-        return;
+        return
     }
 })
