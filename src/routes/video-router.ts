@@ -4,8 +4,6 @@ import {videos} from "../db-in-memory";
 export const videoRouter = Router({})
 
 
-
-
 videoRouter.get('/', (req: Request, res: Response) => {
     res.status(200).send(videos)
     return
@@ -81,11 +79,9 @@ videoRouter.get('/:id', (req: Request, res: Response) => {
 
     console.log('video', video)
     if (!video) {
-        res.status(404)
-        return
+        return res.status(404).send()
     } else {
-        res.status(200).send(video)
-        return;
+        return res.status(200).send(video)
     }
 })
 
@@ -195,7 +191,7 @@ videoRouter.put('/:id', (req: Request, res: Response) => {
         res.status(204).send(video)
         return
     } else {
-        res.status(404)
+        res.status(404).send()
         return;
     }
 })
@@ -214,7 +210,6 @@ videoRouter.put('/:id', (req: Request, res: Response) => {
 // })
 
 
-
 videoRouter.delete('/:id', (req: Request, res: Response) => {
     const id = +req.params.id
     const videoToDeleteIndex = videos.findIndex(v => v.id === id)
@@ -230,9 +225,9 @@ videoRouter.delete('/:id', (req: Request, res: Response) => {
         //     }
         // }
         videos.splice(videoToDeleteIndex, 1)
+        return res.status(204).send(videos)
 
     } else {
-        res.status(404)
-        return
+        return res.status(404).send()
     }
 })
