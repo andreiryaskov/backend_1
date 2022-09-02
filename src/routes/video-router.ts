@@ -122,7 +122,7 @@ videoRouter.put('/:id', (req: Request, res: Response) => {
         return
     }
 
-    if (!availableResolutions || typeof availableResolutions[0] !== "string" || !availableResolutions.trim()) {
+    if (!availableResolutions) {
         res.status(400).send({
             errorsMessages: [
                 {
@@ -190,8 +190,7 @@ videoRouter.put('/:id', (req: Request, res: Response) => {
         video.minAgeRestriction = minAgeRestriction
         video.canBeDownloaded = canBeDownloaded
         video.availableResolutions = availableResolutions
-        // @ts-ignore
-        video.publicationDate = tomorrowInDate //преобразовать и прибавить день
+        video.publicationDate = tomorrowInDate.toISOString() //преобразовать и прибавить день
         res.status(204).send(video)
         return
     } else {
