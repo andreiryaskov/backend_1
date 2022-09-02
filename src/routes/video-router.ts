@@ -175,14 +175,14 @@ videoRouter.put('/:id', (req: Request, res: Response) => {
         return
     }
 
-    const second = 1000
-    const minute = second * 60
-    const hour = minute * 60
-    const day = hour * 24
-
-    const inThisMoment = Date.now()
-    const tomorrowInNumber = inThisMoment + day
-    const tomorrowInDate = new Date(tomorrowInNumber)
+    // const second = 1000
+    // const minute = second * 60
+    // const hour = minute * 60
+    // const day = hour * 24
+    //
+    // const inThisMoment = Date.now()
+    // const tomorrowInNumber = inThisMoment + day
+    // const tomorrowInDate = new Date(tomorrowInNumber)
 
     if (video) {
         video.title = title
@@ -190,7 +190,7 @@ videoRouter.put('/:id', (req: Request, res: Response) => {
         video.minAgeRestriction = minAgeRestriction
         video.canBeDownloaded = canBeDownloaded
         video.availableResolutions = availableResolutions
-        video.publicationDate = tomorrowInDate.toISOString() //преобразовать и прибавить день
+        video.publicationDate = publicationDate //преобразовать и прибавить день
         res.status(204).send(video)
         return
     } else {
