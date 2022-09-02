@@ -22,7 +22,7 @@ console.log(title, 'title')
             errorsMessages: [
                 {
                     message: "string",
-                    field: title
+                    field: "title"
                 }
             ]
         })
@@ -38,7 +38,7 @@ console.log(title, 'title')
             errorsMessages: [
                 {
                     message: "string",
-                    field: author
+                    field: "author"
                 }
             ]
         })
