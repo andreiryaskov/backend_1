@@ -22,7 +22,7 @@ videoRouter.post('/', (req: Request, res: Response) => {
             errorsMessages: [
                 {
                     message: "string",
-                    field: "title"
+                    field: title
                 }
             ]
         })
@@ -30,18 +30,13 @@ videoRouter.post('/', (req: Request, res: Response) => {
     }
 
     console.log('author', author)
-    if (!author ||
-        author.length > 20
+    if (!author
+        || author.length > 20
         || typeof author !== "string"
         || !author.trim()) {
         res.status(400).send({
             errorsMessages: [
-                { message: "string", field: "author" },
-                {
-                    message: "string",
-                    field: "title"
-                }
-
+                { message: "string", field: author }
             ]
         })
         return
