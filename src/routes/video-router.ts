@@ -10,71 +10,62 @@ videoRouter.get('/', (req: Request, res: Response) => {
 })
 
 
+enum resolutions {
+    P144 = "P144", P240 = "P240", P360 = "P360", P480 = "P480", P720 = "P720", P1080 = "P1080", P1440 = "P1440", P2160 = "P2160"
+}
 
+const pattern = new RegExp(`^${resolutions.P144}$|^${resolutions.P240}$|^${resolutions.P360}$|^${resolutions.P480}$|^${resolutions.P720}$|^${resolutions.P1080}$|^${resolutions.P1440}$|^${resolutions.P2160}$`)
 
 videoRouter.post('/', (req: Request, res: Response) => {
     const title = req.body.title //40
     const author = req.body.author //20
-    const availableResolutions = req.body.availableResolutions
+    const availableResolutions: resolutions[] = req.body.availableResolutions
 
-    const array = []
+    const arrayErrors = []
 console.log(title, 'title')
+
+    if (availableResolutions) {
+        const isCorrectResolation = availableResolutions.every((resolation) => pattern.test(resolation))
+
+        if(!isCorrectResolation) {
+            arrayErrors.push({
+                message: "string",
+                field: "availableResolutions"
+            })
+        }
+        // arrayErrors.push({
+        //         message: "string",
+        //         field: "availableResolutions"
+        //     }
+        // )
+    }
+
     if (!title
         || title.length > 40
         || typeof title !== "string"
         || !title.trim()) {
-        array.push({
+        arrayErrors.push({
                     message: "string",
                     field: "title"
                 }
         )
-        // res.status(400).send({
-        //     errorsMessages: [
-        //         {
-        //             message: "string",
-        //             field: "title"
-        //         }
-        //     ]
-        // })
-        // return
     }
 
     console.log('author', author)
     if (!author || author.length > 20 || typeof author !== "string"
         || !author.trim()) {
-        array.push({
+        arrayErrors.push({
                 message: "string",
                 field: "author"
             }
         )
-        // res.status(400).send({
-        //     errorsMessages: [
-        //         {
-        //             message: "string",
-        //             field: "author"
-        //         },
-        //         {
-        //             message: "string",
-        //             field: "title"
-        //         }
-        //     ]
-        // })
-        // return
-        return res.status(400).send({errorsMessages: array})
+
     }
-    // new Date() => 2022-09-01T13:52:07.956Z
-    // Date.now() => 11232145217491
 
-    // +(new Date()) => 12312451412
+    if (arrayErrors.length) {
+        return res.status(400).send({errorsMessages: arrayErrors})
+    }
 
-    // const second = 1000
-    // const minute = second * 60
-    // const hour = minute * 60
-    // const day = hour * 24
-    //
-    // const inThisMoment = Date.now()
-    // const tomorrowInNumber = inThisMoment + day
-    // const tomorrowInDate = new Date(tomorrowInNumber)
 
     const now = new Date();
     const createdAt = new Date(now)
