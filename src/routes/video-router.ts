@@ -104,7 +104,7 @@ videoRouter.put('/:id', (req: Request, res: Response) => {
             errorsMessages: [
                 {
                     message: "string",
-                    field: "title"
+                    field: "author"
                 },
                 {
                     message: "publicationDate !== string",
