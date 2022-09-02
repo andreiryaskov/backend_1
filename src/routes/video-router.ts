@@ -79,6 +79,7 @@ videoRouter.get('/:id', (req: Request, res: Response) => {
     const id = +req.params.id
     const video = videos.find(v => v.id === id)
 
+    console.log('video', video)
     if (!video) {
         res.status(404)
         return
@@ -216,16 +217,20 @@ videoRouter.put('/:id', (req: Request, res: Response) => {
 
 videoRouter.delete('/:id', (req: Request, res: Response) => {
     const id = +req.params.id
-    const newVideo = videos.find(v => v.id === id)
+    const videoToDeleteIndex = videos.findIndex(v => v.id === id)
 
-    if (newVideo) {
-        for (let i = 0; i < videos.length; i++) {
-            if (videos[i].id === id) {
-                videos.splice(i, 1)
-                res.status(204).send(videos)
-                return
-            }
-        }
+    console.log('index', videoToDeleteIndex)
+    if (videoToDeleteIndex !== -1) {
+        // videos = videos.filter(v => v.id !== id)
+        // for (let i = 0; i < videos.length; i++) {
+        //     if (videos[i].id === id) {
+        //         videos.splice(i, 1)
+        //         res.status(204).send(videos)
+        //         return
+        //     }
+        // }
+        videos.splice(videoToDeleteIndex, 1)
+
     } else {
         res.status(404)
         return
