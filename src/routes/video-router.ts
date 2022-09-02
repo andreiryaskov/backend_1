@@ -49,14 +49,18 @@ videoRouter.post('/', (req: Request, res: Response) => {
 
     // +(new Date()) => 12312451412
 
-    const second = 1000
-    const minute = second * 60
-    const hour = minute * 60
-    const day = hour * 24
+    // const second = 1000
+    // const minute = second * 60
+    // const hour = minute * 60
+    // const day = hour * 24
+    //
+    // const inThisMoment = Date.now()
+    // const tomorrowInNumber = inThisMoment + day
+    // const tomorrowInDate = new Date(tomorrowInNumber)
 
-    const inThisMoment = Date.now()
-    const tomorrowInNumber = inThisMoment + day
-    const tomorrowInDate = new Date(tomorrowInNumber)
+    const now = new Date();
+    const createdAt = new Date(now)
+    now.setDate(now.getDate() + 1)
 
     console.log("videos",videos)
     const newVideo = {
@@ -65,8 +69,8 @@ videoRouter.post('/', (req: Request, res: Response) => {
         "author": author,
         "canBeDownloaded": false,
         "minAgeRestriction": null,
-        "createdAt": new Date().toISOString(),
-        "publicationDate": tomorrowInDate.toISOString(),
+        "createdAt": createdAt.toISOString(),
+        "publicationDate": now.toISOString(),
         "availableResolutions": availableResolutions
     }
 
