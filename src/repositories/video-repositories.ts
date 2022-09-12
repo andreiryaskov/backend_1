@@ -12,10 +12,10 @@ let videos = [
         ]
     }
 ]
-enum resolutions {
+enum Resolutions {
     P144 = "P144", P240 = "P240", P360 = "P360", P480 = "P480", P720 = "P720", P1080 = "P1080", P1440 = "P1440", P2160 = "P2160"
 }
-const pattern = new RegExp(`^${resolutions.P144}$|^${resolutions.P240}$|^${resolutions.P360}$|^${resolutions.P480}$|^${resolutions.P720}$|^${resolutions.P1080}$|^${resolutions.P1440}$|^${resolutions.P2160}$`)
+const pattern = new RegExp(`^${Resolutions.P144}$|^${Resolutions.P240}$|^${Resolutions.P360}$|^${Resolutions.P480}$|^${Resolutions.P720}$|^${Resolutions.P1080}$|^${Resolutions.P1440}$|^${Resolutions.P2160}$`)
 
 export const videosRepositories = {
     getVideoId(id: number | null) {
@@ -29,7 +29,7 @@ export const videosRepositories = {
     getAllVideos() {
         return videos
     },
-    postVideo(title: string, author: string, availableResolutions: resolutions[]) {
+    postVideo(title: string, author: string, availableResolutions: Resolutions[]) {
 
         const now = new Date();
         const createdAt = new Date(now)
@@ -49,7 +49,7 @@ export const videosRepositories = {
         videos.push(newVideo)
         return videos
     },
-    postVideoArrayError(title: string, author: string, availableResolutions: resolutions[]) {
+    postVideoArrayError(title: string, author: string, availableResolutions: Resolutions[]) {
         const arrayErrors = []
         if (availableResolutions) {
             const isCorrectResolation = availableResolutions.every((resolation) => pattern.test(resolation))
@@ -94,7 +94,7 @@ export const videosRepositories = {
         title: string,
         author: string,
         minAgeRestriction: number,
-        availableResolutions: resolutions[],
+        availableResolutions: Resolutions[],
         canBeDownloaded: boolean,
         publicationDate: string
     ) {
@@ -116,7 +116,7 @@ export const videosRepositories = {
         title: string,
         author: string,
         minAgeRestriction: number,
-        availableResolutions: resolutions[],
+        availableResolutions: Resolutions[],
         canBeDownloaded: boolean,
         publicationDate: string
     ) {
