@@ -12,9 +12,11 @@ let videos = [
         ]
     }
 ]
+
 enum Resolutions {
     P144 = "P144", P240 = "P240", P360 = "P360", P480 = "P480", P720 = "P720", P1080 = "P1080", P1440 = "P1440", P2160 = "P2160"
 }
+
 const pattern = new RegExp(`^${Resolutions.P144}$|^${Resolutions.P240}$|^${Resolutions.P360}$|^${Resolutions.P480}$|^${Resolutions.P720}$|^${Resolutions.P1080}$|^${Resolutions.P1440}$|^${Resolutions.P2160}$`)
 
 export const videosRepositories = {
@@ -56,8 +58,12 @@ export const videosRepositories = {
 
             if (!isCorrectResolation) {
                 arrayErrors.push({
-                    message: "string",
-                    field: "availableResolutions"
+                    errorsMessages: [
+                        {
+                            "message": "string",
+                            "field": "availableResolutions"
+                        }
+                    ]
                 })
             }
         }
@@ -67,36 +73,57 @@ export const videosRepositories = {
             || typeof title !== "string"
             || !title.trim()) {
             arrayErrors.push({
-                    message: "string",
-                    field: "title"
-                }
-            )
+                errorsMessages: [
+                    {
+                        message: "string",
+                        field: "title"
+                    }
+                ]
+            })
         }
 
         console.log('author', author)
         if (!author || author.length > 20 || typeof author !== "string"
             || !author.trim()) {
             arrayErrors.push({
-                    message: "string",
-                    field: "author"
-                }
-            )
+                errorsMessages: [
+                    {
+                        message: "string",
+                        field: "author"
+                    }
+                ]
+
+            })
         }
 
         if (arrayErrors.length) {
             return arrayErrors
-        } else {
-            return null
         }
-    },
+        return
+    }
+    ,
     putVideo(
-        id: number,
-        title: string,
-        author: string,
-        minAgeRestriction: number,
-        availableResolutions: Resolutions[],
-        canBeDownloaded: boolean,
-        publicationDate: string
+        id
+            :
+            number,
+        title
+            :
+            string,
+        author
+            :
+            string,
+        minAgeRestriction
+            :
+            number,
+        availableResolutions
+            :
+            Resolutions[],
+        canBeDownloaded
+            :
+            boolean,
+        publicationDate
+            :
+            string
     ) {
         const video = videos.find(v => v.id === id)
         if (video) {
@@ -110,15 +137,30 @@ export const videosRepositories = {
         } else {
             return null
         }
-    },
+    }
+    ,
     putVideoError(
-        id: number,
-        title: string,
-        author: string,
-        minAgeRestriction: number,
-        availableResolutions: Resolutions[],
-        canBeDownloaded: boolean,
-        publicationDate: string
+        id
+            :
+            number,
+        title
+            :
+            string,
+        author
+            :
+            string,
+        minAgeRestriction
+            :
+            number,
+        availableResolutions
+            :
+            Resolutions[],
+        canBeDownloaded
+            :
+            boolean,
+        publicationDate
+            :
+            string
     ) {
         if (typeof publicationDate !== "string") {
             return {
@@ -211,8 +253,12 @@ export const videosRepositories = {
                 }
             }
         }
-    },
-    deleteVideoId(id: number) {
+    }
+    ,
+    deleteVideoId(id
+                      :
+                      number
+    ) {
         const videoToDeleteIndex = videos.findIndex(v => v.id === id)
         if (videoToDeleteIndex !== -1) {
             videos.splice(videoToDeleteIndex, 1)
@@ -220,7 +266,8 @@ export const videosRepositories = {
         } else {
             return null
         }
-    },
+    }
+    ,
     deleteAllData() {
         return videos = []
     }
