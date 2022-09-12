@@ -52,19 +52,16 @@ export const videosRepositories = {
         return videos
     },
     postVideoArrayError(title: string, author: string, availableResolutions: Resolutions[]) {
-        const arrayErrors = []
+        const arrayErrors = {errorsMessages: <any[]>[]}
         if (availableResolutions) {
             const isCorrectResolation = availableResolutions.every((resolation) => pattern.test(resolation))
 
             if (!isCorrectResolation) {
-                arrayErrors.push({
-                    errorsMessages: [
-                        {
-                            "message": "string",
-                            "field": "availableResolutions"
-                        }
-                    ]
-                })
+                arrayErrors.errorsMessages.push(
+                    {
+                        "message": "string",
+                        "field": "availableResolutions"
+                    })
             }
         }
 
@@ -72,31 +69,24 @@ export const videosRepositories = {
             || title.length > 40
             || typeof title !== "string"
             || !title.trim()) {
-            arrayErrors.push({
-                errorsMessages: [
-                    {
-                        message: "string",
-                        field: "title"
-                    }
-                ]
-            })
+            arrayErrors.errorsMessages.push(
+                {
+                    message: "string",
+                    field: "title"
+                })
         }
 
         console.log('author', author)
         if (!author || author.length > 20 || typeof author !== "string"
             || !author.trim()) {
-            arrayErrors.push({
-                errorsMessages: [
-                    {
-                        message: "string",
-                        field: "author"
-                    }
-                ]
-
-            })
+            arrayErrors.errorsMessages.push(
+                {
+                    message: "string",
+                    field: "author"
+                })
         }
 
-        if (arrayErrors.length) {
+        if (arrayErrors.errorsMessages.length) {
             return arrayErrors
         }
         return
