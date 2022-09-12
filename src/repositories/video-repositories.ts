@@ -20,13 +20,12 @@ enum Resolutions {
 const pattern = new RegExp(`^${Resolutions.P144}$|^${Resolutions.P240}$|^${Resolutions.P360}$|^${Resolutions.P480}$|^${Resolutions.P720}$|^${Resolutions.P1080}$|^${Resolutions.P1440}$|^${Resolutions.P2160}$`)
 
 export const videosRepositories = {
-    getVideoId(id: number | null) {
+    getVideoId(id: number) {
         if (id) {
             const findVideoId = videos.find(v => v.id === id)
             return findVideoId
-        } else {
-            return videos
         }
+        return
     },
     getAllVideos() {
         return videos
@@ -37,7 +36,7 @@ export const videosRepositories = {
         const createdAt = new Date(now)
         now.setDate(now.getDate() + 1)
 
-        console.log("videos", videos)
+
         const newVideo = {
             "id": videos.length + 1,
             "title": title,
@@ -116,7 +115,9 @@ export const videosRepositories = {
             string
     ) {
         const video = videos.find(v => v.id === id)
-        if (video) {
+        if (!video) {
+            return
+        } else {
             video.title = title
             video.author = author
             // @ts-ignore
@@ -124,9 +125,8 @@ export const videosRepositories = {
             video.canBeDownloaded = canBeDownloaded
             video.availableResolutions = availableResolutions
             video.publicationDate = publicationDate
-        } else {
-            return null
         }
+        return video
     }
     ,
     putVideoError(

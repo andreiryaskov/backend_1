@@ -26,7 +26,7 @@ videoRouter.post('/', (req: Request, res: Response) => {
 
 videoRouter.get('/:id', (req: Request, res: Response) => {
     const id = +req.params.id
-    const findVideo = videosRepositories.getVideoId(id ? id : null)
+    const findVideo = videosRepositories.getVideoId(id)
 
     if (findVideo) {
         return res.status(200).send(findVideo)
