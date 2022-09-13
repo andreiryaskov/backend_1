@@ -43,6 +43,8 @@ export const minAgeRestriction =
         .custom((value) => {
             if (value < 1 || value >18) {
                 return false
+            } else {
+                return value
             }
         })
         .withMessage('age is not correct')
