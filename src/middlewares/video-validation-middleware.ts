@@ -70,13 +70,14 @@ export const minAgeRestriction =
 
 
 export const validationVideoMiddleware = (req: Request, res: Response, next: NextFunction) => {
-    const errorsMessages = validationResult(req)
+    const errorsMessages:any = validationResult(req)
     if (!errorsMessages.isEmpty()) {
-        res.status(400).json({errorsMessages: errorsMessages})
+        res.status(400).json({errorsMessages: errorsMessages.array().msg})
     } else {
         next()
     }
 }
+
 export const createVideoValidate = [
     titleValidation,
     authorValidation,
