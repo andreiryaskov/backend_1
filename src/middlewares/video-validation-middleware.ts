@@ -38,10 +38,13 @@ export const canBeDownloaded =
     body('canBeDownloaded')
         .isBoolean()
         .withMessage("canBeDownloaded !== boolean")
-//resolutionValidation
 export const minAgeRestriction =
     body('minAgeRestriction')
-        .isLength({min: 1, max: 18})
+        .custom((value) => {
+            if (value < 1 || value >18) {
+                return false
+            }
+        })
         .withMessage('age is not correct')
 
 
