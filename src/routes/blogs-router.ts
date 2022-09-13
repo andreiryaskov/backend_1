@@ -1,4 +1,5 @@
 import {Request, Response, Router} from "express";
+import {authMiddleware} from "../middlewares/auth-middleware";
 
 export const blogsRouter = Router({})
 
@@ -7,7 +8,7 @@ blogsRouter.get('/', (req:Request, res:Response) => {
     return res.status(200).send(allBlogs)
 })
 
-blogsRouter.post('/', (req:Request, res:Response) => {
+blogsRouter.post('/', authMiddleware, (req:Request, res:Response) => {
     const name = req.body.name
     const youtubeUrl = req.body.youtubeUrl
     const newBlog = blogsRepositories.createNewBlog(name, youtubeUrl)

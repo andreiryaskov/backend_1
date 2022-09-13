@@ -1,9 +1,9 @@
-import {Request, Response} from "express";
+import {NextFunction, Request, Response} from "express";
 
-export const authMiddleware = (req:Request, res:Response, next: any) => {
+export const authMiddleware = (req:Request, res:Response, next: NextFunction) => {
     if (req.query.token === "123") {
         next()
     } else {
-       return res.send(401)
+       return res.status(401).send()
     }
 }

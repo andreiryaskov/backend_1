@@ -1,3 +1,5 @@
+import {Resolutions} from "../middlewares/video-validation-middleware";
+
 let videos = [
     {
         "id": 0,
@@ -13,17 +15,10 @@ let videos = [
     }
 ]
 
-enum Resolutions {
-    P144 = "P144", P240 = "P240", P360 = "P360", P480 = "P480", P720 = "P720", P1080 = "P1080", P1440 = "P1440", P2160 = "P2160"
-}
-
-const pattern = new RegExp(`^${Resolutions.P144}$|^${Resolutions.P240}$|^${Resolutions.P360}$|^${Resolutions.P480}$|^${Resolutions.P720}$|^${Resolutions.P1080}$|^${Resolutions.P1440}$|^${Resolutions.P2160}$`)
-
 export const videosRepositories = {
     getVideoId(id: number) {
         if (id) {
-            const findVideoId = videos.find(v => v.id === id)
-            return findVideoId
+            return videos.find(v => v.id === id)
         }
         return
     },
@@ -47,72 +42,18 @@ export const videosRepositories = {
             "publicationDate": now.toISOString(),
             "availableResolutions": availableResolutions
         }
+        console.log(newVideo)
         videos.push(newVideo)
         return videos
     },
-    postVideoArrayError(title: string, author: string, availableResolutions: Resolutions[]) {
-        const arrayErrors = {errorsMessages: <any[]>[]}
-        if (availableResolutions) {
-            const isCorrectResolation = availableResolutions.every((resolation) => pattern.test(resolation))
-
-            if (!isCorrectResolation) {
-                arrayErrors.errorsMessages.push(
-                    {
-                        "message": "string",
-                        "field": "availableResolutions"
-                    })
-            }
-        }
-
-        if (!title
-            || title.length > 40
-            || typeof title !== "string"
-            || !title.trim()) {
-            arrayErrors.errorsMessages.push(
-                {
-                    message: "string",
-                    field: "title"
-                })
-        }
-
-        console.log('author', author)
-        if (!author || author.length > 20 || typeof author !== "string"
-            || !author.trim()) {
-            arrayErrors.errorsMessages.push(
-                {
-                    message: "string",
-                    field: "author"
-                })
-        }
-
-        if (arrayErrors.errorsMessages.length) {
-            return arrayErrors
-        }
-        return
-    }
-    ,
     putVideo(
-        id
-            :
-            number,
-        title
-            :
-            string,
-        author
-            :
-            string,
-        minAgeRestriction
-            :
-            number,
-        availableResolutions
-            :
-            Resolutions[],
-        canBeDownloaded
-            :
-            boolean,
-        publicationDate
-            :
-            string
+        id: number,
+        title: string,
+        author: string,
+        minAgeRestriction: number,
+        availableResolutions: Resolutions[],
+        canBeDownloaded: boolean,
+        publicationDate: string
     ) {
         const video = videos.find(v => v.id === id)
         if (!video) {
@@ -127,128 +68,8 @@ export const videosRepositories = {
             video.publicationDate = publicationDate
         }
         return video
-    }
-    ,
-    putVideoError(
-        id
-            :
-            number,
-        title
-            :
-            string,
-        author
-            :
-            string,
-        minAgeRestriction
-            :
-            number,
-        availableResolutions
-            :
-            Resolutions[],
-        canBeDownloaded
-            :
-            boolean,
-        publicationDate
-            :
-            string
-    ) {
-        if (typeof publicationDate !== "string") {
-            return {
-                errorsMessages: [
-                    {
-                        message: "string",
-                        field: "author"
-                    },
-                    {
-                        message: "publicationDate !== string",
-                        field: "publicationDate"
-                    }
-                ]
-            }
-        }
-
-        if (typeof canBeDownloaded !== "boolean") {
-            return {
-                errorsMessages: [
-                    {
-                        message: "string",
-                        field: "title"
-                    },
-                    {
-                        message: "canBeDownloaded !== boolean",
-                        field: "canBeDownloaded"
-                    }
-                ]
-            }
-        }
-
-        if (!availableResolutions) {
-            return {
-                errorsMessages: [
-                    {
-                        message: "string",
-                        field: "title"
-                    },
-                    {
-                        message: "string",
-                        field: "availableResolutions"
-                    }
-                ]
-            }
-        }
-
-        if (minAgeRestriction < 1 || minAgeRestriction > 18) {
-            return {
-                errorsMessages: [
-                    {
-                        message: "string",
-                        field: "title"
-                    },
-                    {
-                        message: "string",
-                        field: "minAgeRestriction"
-                    }
-                ]
-            }
-        }
-
-        if (title.length > 40
-            || !title
-            || typeof title !== "string"
-            || !title.trim()) {
-            return {
-                errorsMessages: [
-                    {
-                        message: "string",
-                        field: "title"
-                    }
-                ]
-
-            }
-            if (author.length > 20
-                || !author
-                || typeof author !== "string"
-                || !author.trim()) {
-                return {
-                    errorsMessages: [
-                        {
-                            message: "string",
-                            field: "title"
-                        },
-                        {
-                            message: "string",
-                            field: "author"
-                        }
-                    ]
-                }
-            }
-        }
-    }
-    ,
-    deleteVideoId(id
-                      :
-                      number
-    ) {
+    },
+    deleteVideoId(id: number) {
         const videoToDeleteIndex = videos.findIndex(v => v.id === id)
         if (videoToDeleteIndex !== -1) {
             videos.splice(videoToDeleteIndex, 1)

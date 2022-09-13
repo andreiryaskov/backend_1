@@ -7,11 +7,10 @@ import {authMiddleware} from "./middlewares/auth-middleware";
 
 const express = require('express')
 const app = express()
-const port = process.env.PORT;
-const middlewareParser = bodyParser({})
+const port = process.env.PORT || 5000;
 
 app.use(authMiddleware)
-app.use(middlewareParser)
+app.use(bodyParser())
 app.use(cors())
 app.use('/videos', videoRouter)
 app.use('/testing', testingRouter)
