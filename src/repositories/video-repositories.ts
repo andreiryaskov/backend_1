@@ -80,6 +80,6 @@ export const videosRepositories = {
     }
     ,
     deleteAllData() {
-        return videos = []
+        return []
     }
 }
