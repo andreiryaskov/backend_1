@@ -11,68 +11,50 @@ const pattern = new RegExp(`^${Resolutions.P144}$|^${Resolutions.P240}$|^${Resol
 export const resolutionValidation =
     body('availableResolutions')
         .isArray()
-        .withMessage({
-            message: "is array empty",
-            field: "availableResolutions"
-        })
+        .withMessage('resolution is not array')
         .custom((value) => {
             return value.every((resolation: string) => pattern.test(resolation))
         })
-        .withMessage({
-            message: "string",
-            field: "availableResolutions"
-        })
+        .withMessage('resolution not found')
         .notEmpty()
-        .withMessage({
-            message: "string",
-            field: "availableResolutions"
-        })
+        .withMessage('resolution is empty')
 export const titleValidation =
     body('title')
         .trim()
         .isLength({min: 1, max: 40})
-        .withMessage({
-            message: "string",
-            field: "title"
-        })
+        .withMessage('title is not correct')
 export const authorValidation =
     body('author')
         .trim()
         .isLength({min: 1, max: 20})
-        .withMessage({
-            message: "string",
-            field: "author"
-        })
+        .withMessage('author is not correct')
 
 //putVideoValidation
 export const publicationDateValidation =
     body('publicationDate')
         .isString()
-        .withMessage({
-            message: "publicationDate !== string",
-            field: "publicationDate"
-        })
+        .withMessage("publicationDate !== string")
 export const canBeDownloaded =
     body('canBeDownloaded')
         .isBoolean()
-        .withMessage({
-            message: "canBeDownloaded !== boolean",
-            field: "canBeDownloaded"
-        })
+        .withMessage("canBeDownloaded !== boolean")
 //resolutionValidation
 export const minAgeRestriction =
     body('minAgeRestriction')
         .isLength({min: 1, max: 18})
-        .withMessage({
-            message: "string",
-            field: "minAgeRestriction"
-        })
+        .withMessage('age is not correct')
 
 
 export const validationVideoMiddleware = (req: Request, res: Response, next: NextFunction) => {
-    const errorsMessages:any = validationResult(req)
+    const errorsMessages = validationResult(req)
     if (!errorsMessages.isEmpty()) {
-        res.status(400).json({errorsMessages: errorsMessages.array().msg})
+        let newErrors = errorsMessages.array();
+        res.status(400).json({
+            errorsMessages: newErrors.map((e) => ({
+                message: e.msg,
+                field: e.param
+            }))
+        })
     } else {
         next()
     }

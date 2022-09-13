@@ -1,6 +1,18 @@
 import {Resolutions} from "../middlewares/video-validation-middleware";
 
-let videos = [
+type VideosType = {
+    "id": number
+    "title": string
+    "author": string
+    "canBeDownloaded": boolean,
+    "minAgeRestriction": null | number,
+    "createdAt": string,
+    "publicationDate": string,
+    "availableResolutions": string[]
+}
+
+
+let videos: VideosType[] = [
     {
         "id": 0,
         "title": "string",
@@ -42,9 +54,9 @@ export const videosRepositories = {
             "publicationDate": now.toISOString(),
             "availableResolutions": availableResolutions
         }
-        console.log(newVideo)
+
         videos.push(newVideo)
-        return videos
+        return newVideo
     },
     putVideo(
         id: number,
@@ -61,7 +73,6 @@ export const videosRepositories = {
         } else {
             video.title = title
             video.author = author
-            // @ts-ignore
             video.minAgeRestriction = minAgeRestriction
             video.canBeDownloaded = canBeDownloaded
             video.availableResolutions = availableResolutions
