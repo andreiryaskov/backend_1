@@ -1,4 +1,4 @@
-import {Resolutions} from "../middlewares/video-validation-middleware";
+import {Resolutions} from "../middlewares/video-validation";
 
 type VideosType = {
     "id": number

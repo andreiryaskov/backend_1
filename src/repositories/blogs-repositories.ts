@@ -1,46 +1,49 @@
 let blogs = [
     {
-        "id": "string",
+        "id": "0",
         "name": "string",
-        "youtubeUrl": "string"
+        "youtubeUrl": "https://andreiryaskov.com"
     }
 ]
-const url = /^(https:\/\/([a-zA-Z0-9_-]+\.)+[a-zA-Z0-9_-]+(\/[a-zA-Z0-9_-]+)*\/)?$/
 
 
-const blogsRepositories = {
+export const blogsRepositories = {
     getAllBlogs() {
         return blogs
     },
     createNewBlog(name: string, youtubeUrl: string) {
         const newBlog = {
-            id: new Date(),
+            id: `${blogs.length + 1}`,
             name,
             youtubeUrl
         }
+        blogs.push(newBlog)
         return newBlog
     },
-    createdNewBlogError(name: string, youtubeUrl: string) {
-        const errorResult = {errorsMessages: <any[]>[]}
-        if (!name || name.length > 15 || !name.trim()) {
-            errorResult.errorsMessages.push({
-                "message": "string",
-                "field": "name"
-            })
-        }
-        if (!youtubeUrl
-            || youtubeUrl.length > 100
-            || !youtubeUrl.trim()
-            || !url) {
-            errorResult.errorsMessages.push({
-                "message": "string",
-                "field": "youtubeUrl"
-            })
-        }
-        if (errorResult.errorsMessages.length) {
-            return errorResult
+    getBlogById(id: string) {
+        if (id) {
+            return blogs.find(b => b.id === id)
         }
         return
-    }
+    },
+    updateBlogById(id: string, name: string, youtubeUrl: string) {
+        const updateBlog = blogs.find(b => b.id === id)
 
+        if (!updateBlog) {
+            return
+        } else {
+            updateBlog.name = name
+            updateBlog.youtubeUrl = youtubeUrl
+        }
+        return updateBlog
+    },
+    deleteBlogById(id: string) {
+        const deleteBlogId = blogs.findIndex(b => b.id === id)
+        if (deleteBlogId !== -1) {
+            blogs.splice(deleteBlogId, 1)
+            return blogs
+        } else {
+            return
+        }
+    }
 }

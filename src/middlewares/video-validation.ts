@@ -1,5 +1,4 @@
-import {body, validationResult} from "express-validator";
-import {NextFunction, Request, Response} from "express";
+import {body} from "express-validator";
 
 
 export enum Resolutions {
@@ -50,20 +49,7 @@ export const minAgeRestriction =
         .withMessage('age is not correct')
 
 
-export const validationVideoMiddleware = (req: Request, res: Response, next: NextFunction) => {
-    const errorsMessages = validationResult(req)
-    if (!errorsMessages.isEmpty()) {
-        let newErrors = errorsMessages.array();
-        res.status(400).json({
-            errorsMessages: newErrors.map((e) => ({
-                message: e.msg,
-                field: e.param
-            }))
-        })
-    } else {
-        next()
-    }
-}
+
 
 export const createVideoValidate = [
     titleValidation,

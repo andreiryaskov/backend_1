@@ -2,9 +2,9 @@ import {Request, Response, Router} from "express";
 import {videosRepositories} from "../repositories/video-repositories";
 import {
     createVideoValidate,
-    putVideoValidate,
-    validationVideoMiddleware
-} from "../middlewares/video-validation-middleware";
+    putVideoValidate
+} from "../middlewares/video-validation";
+import {validationMiddleware} from "../middlewares/validationMiddleware";
 
 export const videoRouter = Router({})
 
@@ -26,7 +26,7 @@ videoRouter.get('/:id', (req: Request, res: Response) => {
 
 videoRouter.post('/',
     createVideoValidate,
-    validationVideoMiddleware,
+    validationMiddleware,
     (req: Request, res: Response) => {
         const title = req.body.title
         const author = req.body.author
@@ -41,7 +41,7 @@ videoRouter.post('/',
 
 videoRouter.put('/:id',
     putVideoValidate,
-    validationVideoMiddleware,
+    validationMiddleware,
     (req: Request, res: Response) => {
     const id = +req.params.id
     const title = req.body.title
