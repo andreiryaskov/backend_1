@@ -6,6 +6,7 @@ const url = new RegExp(`^https:\/\/([a-zA-Z0-9_-]+\.)+[a-zA-Z0-9_-]+(\/[a-zA-Z0-
 export const nameBlogValidation =
     body('name')
         .trim()
+        .exists()
         .isLength({max: 15})
         .withMessage('name is not correct')
 export const urlBlogValidation =
