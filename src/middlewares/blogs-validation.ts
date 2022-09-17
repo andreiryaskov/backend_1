@@ -6,13 +6,13 @@ const url = new RegExp(`^https:\/\/([a-zA-Z0-9_-]+\.)+[a-zA-Z0-9_-]+(\/[a-zA-Z0-
 export const nameBlogValidation =
     body('name')
         .trim()
-        .exists()
-        .isLength({max: 15})
+        .isString()
+        .isLength({min: 1,max: 15})
         .withMessage('name is not correct')
 export const urlBlogValidation =
     body('youtubeUrl')
         .trim()
-        .isLength({max: 100})
+        .isLength({min: 1, max: 100})
         .matches(url)
         .withMessage('youtubeUrl is not correct')
 

@@ -3,20 +3,20 @@ import {body} from "express-validator";
 export const titleValidation =
     body('title')
         .trim()
-        .exists()
-        .isLength({max: 30})
+        .isString()
+        .isLength({min:1,max: 30})
         .withMessage('title is not correct')
 export const shortDescriptionValidation =
     body('shortDescription')
         .trim()
-        .exists()
-        .isLength({max: 100})
+        .isString()
+        .isLength({min:1,max: 100})
         .withMessage('shortDescription is not correct')
 export const contentValidation =
     body('content')
         .trim()
-        .exists()
-        .isLength({max: 1000})
+        .isString()
+        .isLength({min:1,max: 1000})
         .withMessage('content is not correct')
 export const blogIdValidation =
     body('blogId')
