@@ -10,7 +10,7 @@ export const basicAuthorisation = (req: Request, res: Response, next: NextFuncti
 
     if (login !== stdAuth.login || password !== stdAuth.password) {
         return res.status(401).send()
-    } else if (!validHeader){
+    } else if (req.headers.authorization !== validHeader){
         return res.status(400).send()
     }
     next()
