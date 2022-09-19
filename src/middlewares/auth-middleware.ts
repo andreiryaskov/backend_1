@@ -12,7 +12,7 @@ export const basicAuthorisation = (req: Request, res: Response, next: NextFuncti
     if (login !== stdAuth.login || password !== stdAuth.password) {
         return res.status(401).send()
     } else if (basic !== 'Basic') {
-        return res.status(400).send()
+        return res.status(401).send()
     } else {
         next()
     }
