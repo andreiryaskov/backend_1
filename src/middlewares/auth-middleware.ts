@@ -6,7 +6,8 @@ export const basicAuthorisation = (req: Request, res: Response, next: NextFuncti
     if (!auth) return res.status(401).send()
     const token = auth.split(' ')[1]
     const [login, password] = Buffer.from(token, 'base64').toString().split(':')
-    if (login !== stdAuth.login || password !== stdAuth.password) {
+    const validHeader = `Basic ${login}:${password}`
+    if (login !== stdAuth.login || password !== stdAuth.password || !validHeader) {
         return res.status(401).send()
     } else {
         next()
