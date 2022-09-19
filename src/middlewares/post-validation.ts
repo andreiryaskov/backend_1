@@ -21,6 +21,7 @@ export const contentValidation =
 export const blogIdValidation =
     body('blogId')
         .trim()
+        .isLength({min:1})
         .isString()
         .withMessage('blogId is not correct')
 
