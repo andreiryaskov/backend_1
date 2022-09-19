@@ -11,8 +11,7 @@ export const nameBlogValidation =
         .withMessage('name is not correct')
 export const urlBlogValidation =
     body('youtubeUrl')
-        .trim()
-        .isLength({min:1, max: 100})
+        .isLength({max: 100})
         .matches(url)
 
 export const createBlogValidation = [
