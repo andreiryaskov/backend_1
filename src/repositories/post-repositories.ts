@@ -1,5 +1,3 @@
-import {blogs} from "./blogs-repositories";
-
 const posts = [
     {
         "id": "string",
@@ -19,21 +17,23 @@ export const postsRepositories = {
                   shortDescription: string,
                   content: string,
                   blogId: string) {
-        const findIdByBlogId = blogs.find(b => b.id === blogId)
-        if (!findIdByBlogId) {
-            return
-        } else {
-            const newPost = {
-                "id": `${posts.length + 1}`,
-                title,
-                shortDescription,
-                content,
-                blogId,
-                "blogName": findIdByBlogId.name
-            }
-            posts.push(newPost)
-            return newPost
+        // const findIdByBlogId = blogs.find(b => b.id === blogId)
+        // if (!findIdByBlogId) {
+        //     return
+        // } else {
+        //
+        // }
+        const newPost = {
+            "id": `${posts.length + 1}`,
+            title,
+            shortDescription,
+            content,
+            blogId,
+            "blogName": "some name"
+            // findIdByBlogId.name
         }
+        posts.push(newPost)
+        return newPost
     },
     getPostById(id: string) {
         const findPostById = posts.find(p => p.id === id)
