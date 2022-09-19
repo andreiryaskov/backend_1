@@ -17,11 +17,6 @@ export const postsRepositories = {
                   shortDescription: string,
                   content: string,
                   blogId: string) {
-        const findPostByBlogId = posts.find(p => p.blogId === blogId)
-        let blogName
-        if(findPostByBlogId) {
-            blogName = findPostByBlogId.blogName
-        }
 
         const newPost = {
             "id": `${posts.length + 1}`,
@@ -29,7 +24,7 @@ export const postsRepositories = {
             shortDescription,
             content,
             blogId,
-            "blogName": blogName ? blogName : "someName"
+            "blogName": "string"
         }
 
         posts.push(newPost)
@@ -47,7 +42,7 @@ export const postsRepositories = {
                    shortDescription: string,
                    content: string,
                    blogId: string) {
-        const findUpdatePostById = posts.find(p => p.id === id)
+        const findUpdatePostById = posts.find(p => p.blogId === blogId)
         if (!findUpdatePostById) {
             return
         } else {
