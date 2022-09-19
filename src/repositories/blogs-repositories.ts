@@ -1,4 +1,4 @@
-let blogs = [
+export let blogs = [
     {
         "id": "0",
         "name": "string",

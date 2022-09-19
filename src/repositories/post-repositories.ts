@@ -1,3 +1,5 @@
+import {blogs} from "./blogs-repositories";
+
 const posts = [
     {
         "id": "string",
@@ -42,16 +44,21 @@ export const postsRepositories = {
                    shortDescription: string,
                    content: string,
                    blogId: string) {
-        const findUpdatePostById = posts.find(p => p.id === id)
-        if (!findUpdatePostById) {
+        const findUpdateBlogById = blogs.find(b => b.id === blogId)
+        if (!findUpdateBlogById) {
             return
         } else {
-            findUpdatePostById.title = title
-            findUpdatePostById.shortDescription = shortDescription
-            findUpdatePostById.content = content
-            findUpdatePostById.blogId = blogId
+            const findUpdatePostById = posts.find(p => p.id === id)
+            if (findUpdatePostById) {
+                findUpdatePostById.title = title
+                findUpdatePostById.shortDescription = shortDescription
+                findUpdatePostById.content = content
+                findUpdatePostById.blogId = blogId
+                return findUpdatePostById
+            } else {
+                return
+            }
         }
-        return findUpdatePostById
     },
     deletePostById(id: string) {
         const findPostIndexById = posts.findIndex(p => p.id === id)
