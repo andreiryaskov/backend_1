@@ -17,13 +17,19 @@ export const postsRepositories = {
                   shortDescription: string,
                   content: string,
                   blogId: string) {
+        const findPostByBlogId = posts.find(p => p.blogId === blogId)
+        let blogName
+        if(findPostByBlogId) {
+            blogName = findPostByBlogId.blogName
+        }
+
         const newPost = {
             "id": `${posts.length + 1}`,
             title,
             shortDescription,
             content,
             blogId,
-            "blogName": "string"
+            "blogName": blogName ? blogName : "someName"
         }
 
         posts.push(newPost)
