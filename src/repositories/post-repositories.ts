@@ -20,21 +20,20 @@ export const postsRepositories = {
                   content: string,
                   blogId: string) {
         const findIdByBlogId = blogs.find(b => b.id === blogId)
-        if (findIdByBlogId) {
+        if (!findIdByBlogId) {
             return
+        } else {
+            const newPost = {
+                "id": `${posts.length + 1}`,
+                title,
+                shortDescription,
+                content,
+                blogId,
+                "blogName": findIdByBlogId.name
+            }
+            posts.push(newPost)
+            return newPost
         }
-
-        const newPost = {
-            "id": `${posts.length + 1}`,
-            title,
-            shortDescription,
-            content,
-            blogId,
-            "blogName": "string"
-        }
-
-        posts.push(newPost)
-        return newPost
     },
     getPostById(id: string) {
         const findPostById = posts.find(p => p.id === id)
