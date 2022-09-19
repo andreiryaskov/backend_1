@@ -1,4 +1,5 @@
 import {body} from "express-validator";
+import {blogs} from "../repositories/blogs-repositories";
 
 export const titleValidation =
     body('title')
@@ -18,11 +19,12 @@ export const contentValidation =
         .isString()
         .isLength({min:1,max: 1000})
         .withMessage('content is not correct')
+
 export const blogIdValidation =
     body('blogId')
-        .trim()
-        .isLength({min:1})
-        .withMessage('blogId is not correct')
+        .isString()
+        .contains(blogs.map(b => b.id))
+        .withMessage('blog id is not valid')
 
 export const createPostValidation = [
     titleValidation,
