@@ -42,7 +42,7 @@ export const postsRepositories = {
                    shortDescription: string,
                    content: string,
                    blogId: string) {
-        const findUpdatePostById = posts.find(p => p.blogId === blogId)
+        const findUpdatePostById = posts.find(p => p.id === id)
         if (!findUpdatePostById) {
             return
         } else {
