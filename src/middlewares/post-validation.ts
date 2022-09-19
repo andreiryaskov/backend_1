@@ -21,7 +21,7 @@ export const contentValidation =
 export const blogIdValidation =
     body('blogId')
         .trim()
-        .isLength({min:1})
+        .isLength({min:1, max: 4})
         .withMessage('blogId is not correct')
 
 export const createPostValidation = [

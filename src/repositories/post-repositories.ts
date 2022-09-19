@@ -19,6 +19,10 @@ export const postsRepositories = {
                   shortDescription: string,
                   content: string,
                   blogId: string) {
+        const findIdByBlogId = blogs.find(b => b.id === blogId)
+        if (findIdByBlogId) {
+            return
+        }
 
         const newPost = {
             "id": `${posts.length + 1}`,
@@ -44,21 +48,16 @@ export const postsRepositories = {
                    shortDescription: string,
                    content: string,
                    blogId: string) {
-        const findUpdateBlogById = blogs.find(b => b.id === blogId)
-        if (!findUpdateBlogById) {
+        const findUpdatePostById = posts.find(p => p.id === id)
+        if (!findUpdatePostById) {
             return
         } else {
-            const findUpdatePostById = posts.find(p => p.id === id)
-            if (findUpdatePostById) {
-                findUpdatePostById.title = title
-                findUpdatePostById.shortDescription = shortDescription
-                findUpdatePostById.content = content
-                findUpdatePostById.blogId = blogId
-                return findUpdatePostById
-            } else {
-                return
-            }
+            findUpdatePostById.title = title
+            findUpdatePostById.shortDescription = shortDescription
+            findUpdatePostById.content = content
+            findUpdatePostById.blogId = blogId
         }
+        return findUpdatePostById
     },
     deletePostById(id: string) {
         const findPostIndexById = posts.findIndex(p => p.id === id)
