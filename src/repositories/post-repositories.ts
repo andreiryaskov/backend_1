@@ -1,15 +1,15 @@
 import {postCollection} from "./db";
 
-const posts = [
-    {
-        "id": "string",
-        "title": "string",
-        "shortDescription": "string",
-        "content": "string",
-        "blogId": "string",
-        "blogName": "string"
-    }
-]
+// const posts = [
+//     {
+//         "id": "string",
+//         "title": "string",
+//         "shortDescription": "string",
+//         "content": "string",
+//         "blogId": "string",
+//         "blogName": "string"
+//     }
+// ]
 
 export const postsRepositories = {
     async getAllPosts(){
@@ -74,5 +74,8 @@ export const postsRepositories = {
         //     return posts
         // }
         // return
+    },
+    async deleteAllData() {
+        return await postCollection.deleteMany({})
     }
 }

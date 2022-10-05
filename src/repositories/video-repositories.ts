@@ -90,7 +90,7 @@ export const videosRepositories = {
         }
     }
     ,
-    deleteAllData() {
-        return []
+    async deleteAllData() {
+        // .users.deleteMany({})
     }
 }

@@ -49,5 +49,9 @@ export const blogsRepositories = {
         } else {
             return
         }
+    },
+    async deleteAllData() {
+        return await blogCollection.deleteMany({})
     }
+
 }
