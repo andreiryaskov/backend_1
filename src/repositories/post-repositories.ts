@@ -1,3 +1,5 @@
+import {postCollection} from "./db";
+
 const posts = [
     {
         "id": "string",
@@ -10,60 +12,67 @@ const posts = [
 ]
 
 export const postsRepositories = {
-    getAllPosts() {
-        return posts
+    async getAllPosts(){
+        return  await postCollection.find().toArray()
     },
-    createNewPost(title: string,
+
+
+    async createNewPost(title: string,
                   shortDescription: string,
                   content: string,
-                  blogId: string) {
-        // const findIdByBlogId = blogs.find(b => b.id === blogId)
-        // if (!findIdByBlogId) {
-        //     return
-        // } else {
-        //
-        // }
+                  blogId: string): Promise<unknown> {
+
+        const now = new Date();
+        const createdAt = new Date(now)
+        // now.setDate(now.getDate() + 1)
+
         const newPost = {
-            "id": `${posts.length + 1}`,
+            "id": now,
             title,
             shortDescription,
             content,
             blogId,
-            "blogName": "some name"
-            // findIdByBlogId.name
+            "blogName": "some name",
+            "createdAt":  createdAt.toISOString()
         }
-        posts.push(newPost)
-        return newPost
+        return await postCollection.insertOne(newPost)
     },
-    getPostById(id: string) {
-        const findPostById = posts.find(p => p.id === id)
+    async getPostById(id: string): Promise<unknown | null> {
+        const findPostById: unknown | null = await postCollection.findOne({id})
         if (findPostById) {
             return findPostById
         }
         return
     },
-    updatePostById(id: string,
+    async updatePostById(id: string,
                    title: string,
                    shortDescription: string,
                    content: string,
-                   blogId: string) {
-        const findUpdatePostById = posts.find(p => p.id === id)
-        if (!findUpdatePostById) {
+                   blogId: string): Promise<unknown> {
+        const result = await postCollection.findOne({id})
+        // return result.matchedCount === 1
+
+        // const findUpdatePostById = posts.find(p => p.id === id)
+        if (!result) {
             return
         } else {
-            findUpdatePostById.title = title
-            findUpdatePostById.shortDescription = shortDescription
-            findUpdatePostById.content = content
-            findUpdatePostById.blogId = blogId
+            result.title = title
+            result.shortDescription = shortDescription
+            result.content = content
+            result.blogId = blogId
         }
-        return findUpdatePostById
+        return result
     },
-    deletePostById(id: string) {
-        const findPostIndexById = posts.findIndex(p => p.id === id)
-        if (findPostIndexById !== -1) {
-            posts.splice(findPostIndexById, 1)
-            return posts
-        }
-        return
+    async deletePostById(id: string): Promise<boolean> {
+        const result= await postCollection.deleteOne({id})
+        return result.deletedCount === 1
+
+
+        // const findPostIndexById = posts.findIndex(p => p.id === id)
+        // if (findPostIndexById !== -1) {
+        //     posts.splice(findPostIndexById, 1)
+        //     return posts
+        // }
+        // return
     }
 }
