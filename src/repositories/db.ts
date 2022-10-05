@@ -5,6 +5,7 @@ const mongoUri = process.env.mongoURI || "mongodb://localhost:27017"
 
 export const client = new MongoClient(mongoUri)
 export const postCollection = client.db("posts").collection("post")
+export const blogCollection = client.db("blogs").collection("blogs")
 
 export async function runDB() {
     try {

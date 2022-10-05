@@ -1,3 +1,5 @@
+import {blogCollection} from "./db";
+
 export let blogs = [
     {
         "id": "0",
@@ -8,26 +10,29 @@ export let blogs = [
 
 
 export const blogsRepositories = {
-    getAllBlogs() {
-        return blogs
+    async getAllBlogs() {
+        return await blogCollection.find().toArray()
     },
-    createNewBlog(name: string, youtubeUrl: string) {
+    async createNewBlog(name: string, youtubeUrl: string) {
+        const now = new Date();
+        const createdAt = new Date(now)
         const newBlog = {
-            id: `${blogs.length + 1}`,
+            id: `${now}`,
             name,
-            youtubeUrl
+            youtubeUrl,
+            createdAt: createdAt.toISOString()
+
         }
-        blogs.push(newBlog)
-        return newBlog
+        return await blogCollection.insertOne(newBlog)
     },
-    getBlogById(id: string) {
+    async getBlogById(id: string) {
         if (id) {
-            return blogs.find(b => b.id === id)
+            return await blogCollection.findOne({id})
         }
         return
     },
-    updateBlogById(id: string, name: string, youtubeUrl: string) {
-        const updateBlog = blogs.find(b => b.id === id)
+    async updateBlogById(id: string, name: string, youtubeUrl: string) {
+        const updateBlog = await blogCollection.findOne({id})
 
         if (!updateBlog) {
             return
@@ -37,11 +42,10 @@ export const blogsRepositories = {
         }
         return updateBlog
     },
-    deleteBlogById(id: string) {
-        const deleteBlogId = blogs.findIndex(b => b.id === id)
-        if (deleteBlogId !== -1) {
-            blogs.splice(deleteBlogId, 1)
-            return blogs
+    async deleteBlogById(id: string) {
+        const deleteBlogId = await blogCollection.findOne({id})
+        if (deleteBlogId) {
+            return await blogCollection.deleteOne({id})
         } else {
             return
         }
