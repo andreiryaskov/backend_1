@@ -1,15 +1,6 @@
 import {postCollection} from "./db";
 
-// const posts = [
-//     {
-//         "id": "string",
-//         "title": "string",
-//         "shortDescription": "string",
-//         "content": "string",
-//         "blogId": "string",
-//         "blogName": "string"
-//     }
-// ]
+
 
 export const postsRepositories = {
     async getAllPosts(){
