@@ -8,16 +8,24 @@ export const blogsRepositories = {
     async createNewBlog(name: string, youtubeUrl: string) {
 
         const now = new Date();
-        const createdAt = new Date(now)
+        // const createdAt = new Date(now)
 
         const newBlog = {
             id: v1(),
             name,
             youtubeUrl,
-            createdAt: createdAt.toISOString()
+            createdAt: now.toISOString()
         }
+        console.log(newBlog.createdAt)
 
-        return await blogCollection.insertOne(newBlog)
+        await blogCollection.insertOne(newBlog)
+
+        const returnObject = {id: newBlog.id,
+            name: newBlog.name,
+            youtubeUrl:newBlog.youtubeUrl,
+            createdAt:newBlog.createdAt
+        }
+        return returnObject
     },
     async getBlogById(id: string) {
         if (id) {
