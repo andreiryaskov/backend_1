@@ -4,6 +4,7 @@ import {MongoClient} from "mongodb";
 const mongoUri = process.env.mongoURI || "mongodb://localhost:27017"
 
 export const client = new MongoClient(mongoUri)
+console.log('mongoUri', mongoUri)
 export const postCollection = client.db("posts").collection("posts")
 export const blogCollection = client.db("blogs").collection("blogs")
 
@@ -14,8 +15,8 @@ export async function runDB() {
         await client.db("posts").command({ping: 1})
         console.log("connected to mongo server")
     }
-    catch {
-        console.log("can`t connect to db")
+    catch (e) {
+        console.log("can`t connect to db", e)
         await client.close()
     }
 }
