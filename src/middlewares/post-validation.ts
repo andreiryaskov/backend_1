@@ -1,5 +1,6 @@
 import {body} from "express-validator";
-import {blogs} from "../repositories/blogs-repositories";
+import {blogCollection} from "../repositories/db";
+//import {blogs} from "../repositories/blogs-repositories";
 
 export const titleValidation =
     body('title')
@@ -23,8 +24,9 @@ export const contentValidation =
 export const blogIdValidation =
     body('blogId')
         .isString()
-        .custom((value) => {
-            return blogs.find(b => b.id === value)
+        .custom(async (value) => {
+            const findBlog =  await blogCollection.find({id: value})
+            return findBlog
         })
         .withMessage('blog id is not valid')
 

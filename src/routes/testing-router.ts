@@ -6,10 +6,14 @@ export const testingRouter = Router({})
 
 testingRouter.delete('/all-data',
     async (req: Request, res: Response) => {
+    console.log('all-data')
         const deleteAllBlogs = await blogsRepositories.deleteAllData()
         const deleteAllPosts = await postsRepositories.deleteAllData()
-        if (!deleteAllBlogs && !deleteAllPosts) {
-            return res.status(204)
+        console.log('after')
+        // const deleteAllPosts = await postsRepositories.deleteAllData()
+        if (deleteAllPosts || deleteAllBlogs) {
+            return res.status(204).send()
         }
-        return
+        console.log('no result')
+        return res.status(404).send()
     })

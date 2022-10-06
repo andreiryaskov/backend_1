@@ -8,7 +8,6 @@ import {runDB} from "./repositories/db";
 
 const express = require('express')
 const app = express()
-//какой порт ??? 5000 или 27017
 const port = process.env.PORT || 5000;
 
 app.use(bodyParser())

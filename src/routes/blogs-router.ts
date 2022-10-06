@@ -6,8 +6,10 @@ import {blogsRepositories} from "../repositories/blogs-repositories";
 
 export const blogsRouter = Router({})
 
+
 blogsRouter.get('/',
     async (req: Request, res: Response) => {
+    console.log('get blogs')
         const allBlogs = await blogsRepositories.getAllBlogs()
         return res.status(200).send(allBlogs)
     })
@@ -30,7 +32,7 @@ blogsRouter.get('/:id',
     const findBlogById = await blogsRepositories.getBlogById(id)
 
     if (findBlogById) {
-        return res.status(200).send(findBlogById)
+        return res.status(200).send()
     } else {
         return res.status(404).send()
     }
@@ -53,9 +55,9 @@ blogsRouter.put('/:id',
     })
 blogsRouter.delete('/:id',
     basicAuthorisation,
-    (req: Request, res: Response) => {
+    async (req: Request, res: Response) => {
         const id = req.params.id
-        const deleteBlog = blogsRepositories.deleteBlogById(id)
+        const deleteBlog = await blogsRepositories.deleteBlogById(id)
 
         if (!deleteBlog) {
             return res.status(404).send()

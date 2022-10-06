@@ -9,7 +9,7 @@ export const postsRouter = Router({})
 postsRouter.get('/',
     async (req: Request, res: Response) => {
         const getAllPosts = await postsRepositories.getAllPosts()
-        return res.send(getAllPosts)
+        return res.status(200).send(getAllPosts)
     })
 postsRouter.post('/',
     basicAuthorisation,
