@@ -20,12 +20,7 @@ export const blogsRepositories = {
 
         await blogCollection.insertOne(newBlog)
 
-        const returnObject = {id: newBlog.id,
-            name: newBlog.name,
-            youtubeUrl:newBlog.youtubeUrl,
-            createdAt:newBlog.createdAt
-        }
-        return returnObject
+        return newBlog
     },
     async getBlogById(id: string) {
         if (id) {
