@@ -24,7 +24,16 @@ export const blogsRepositories = {
     },
     async getBlogById(id: string) {
         if (id) {
-            return await blogCollection.findOne({id})
+            const getBlogById =  await blogCollection.findOne({id})
+            if (getBlogById) {
+                const returnObj = {
+                    createdAt: getBlogById.createdAt,
+                    id: getBlogById.id,
+                    name: getBlogById.name,
+                    youtubeUrl: getBlogById.youtubeUrl
+                }
+                return returnObj
+            }
         }
         return
     },
