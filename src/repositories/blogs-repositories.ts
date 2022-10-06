@@ -34,8 +34,8 @@ export const blogsRepositories = {
                 }
                 return returnObj
             }
-        }
         return
+        }
     },
     async updateBlogById(id: string, name: string, youtubeUrl: string) {
 

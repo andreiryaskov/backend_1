@@ -32,7 +32,7 @@ blogsRouter.get('/:id',
     const findBlogById = await blogsRepositories.getBlogById(id)
 
     if (findBlogById) {
-        return res.status(200).send()
+        return res.status(200).send(findBlogById)
     } else {
         return res.status(404).send()
     }
