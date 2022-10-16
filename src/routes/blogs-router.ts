@@ -2,7 +2,7 @@ import {Request, Response, Router} from "express";
 import {createBlogValidation} from "../middlewares/blogs-validation";
 import {validationMiddleware} from "../middlewares/validationMiddleware";
 import {basicAuthorisation} from "../middlewares/auth-middleware";
-import {blogsRepositories} from "../repositories/blogs-repositories";
+import {blogsRepositories, BlogType} from "../repositories/blogs-repositories";
 
 export const blogsRouter = Router({})
 

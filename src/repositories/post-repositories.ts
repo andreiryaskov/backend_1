@@ -1,9 +1,9 @@
-import {blogCollection, postCollection} from "./db";
+import {blogCollection, postCollection, PostType} from "./db";
 import {v1} from "uuid";
 
 
 export const postsRepositories = {
-    async getAllPosts() {
+    async getAllPosts(): Promise<unknown> {
         return await postCollection.find().toArray()
     },
     async createNewPost(title: string,
@@ -15,7 +15,7 @@ export const postsRepositories = {
         const createdAt = new Date(now)
         // now.setDate(now.getDate() + 1)
 
-        const newPost = {
+        const newPost: PostType = {
             "id": v1(),
             title,
             shortDescription,
@@ -26,12 +26,12 @@ export const postsRepositories = {
         }
         return await postCollection.insertOne(newPost)
     },
-    async getPostById(id: string): Promise<unknown | null> {
-        const findPostById: unknown | null = await postCollection.findOne({id})
+    async getPostById(id: string): Promise<unknown> {
+        const findPostById = await postCollection.findOne({id})
         if (findPostById) {
             return findPostById
         }
-        return
+        return null
     },
     async updatePostById(id: string,
                          title: string,
@@ -44,16 +44,16 @@ export const postsRepositories = {
         const updateBlogIdPost = await blogCollection.updateOne({id: id}, {$set: {blogId: blogId}})
 
 
-        return updateTitlePost.matchedCount === 1
-            && updateDescrPost.matchedCount === 1
-            && updateContentPost.matchedCount === 1
-            && updateBlogIdPost.matchedCount === 1
+        // return updateTitlePost.matchedCount === 1
+        //     && updateDescrPost.matchedCount === 1
+        //     && updateContentPost.matchedCount === 1
+        //     && updateBlogIdPost.matchedCount === 1
     },
     async deletePostById(id: string): Promise<boolean> {
         const deletePostById = await postCollection.deleteOne({id:id})
         return deletePostById.deletedCount === 1
     },
-    async deleteAllData() {
+    async deleteAllData(): Promise<unknown> {
         return await postCollection.deleteMany({})
     }
 }
